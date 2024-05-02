@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    "vuetify-nuxt-module"
   ],
   ui: {
     icons: ['heroicons', 'simple-icons'],

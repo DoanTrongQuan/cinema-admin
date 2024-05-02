@@ -14,7 +14,7 @@ const links = [{
   }
 }, {
   id: 'inbox',
-  label: 'Inbox',
+  label: 'Quản lí hóa đơn',
   icon: 'i-heroicons-inbox',
   to: '/inbox',
   badge: '4',
@@ -24,7 +24,7 @@ const links = [{
   }
 }, {
   id: 'users',
-  label: 'Users',
+  label: 'Quản lí người dùng',
   icon: 'i-heroicons-user-group',
   to: '/users',
   tooltip: {
@@ -32,26 +32,34 @@ const links = [{
     shortcuts: ['G', 'U']
   }
 }, {
-  id: 'settings',
-  label: 'Settings',
-  to: '/settings',
+  id: 'cinema',
+  label: 'Quản lí rạp chiếu phim',
+  to: '/cinema',
   icon: 'i-heroicons-cog-8-tooth',
   children: [{
-    label: 'General',
-    to: '/settings',
+    label: 'Quản lí phim',
+    to: '/cinema/movie',
     exact: true
   }, {
-    label: 'Members',
-    to: '/settings/members'
+    label: 'Quản lí lịch chiếu',
+    to: '/cinema/schedule'
   }, {
-    label: 'Notifications',
-    to: '/settings/notifications'
-  }],
-  tooltip: {
-    text: 'Settings',
-    shortcuts: ['G', 'S']
+    label: 'Quản lí phòng chiếu',
+    to: '/cinema/room'
+  },
+  {
+    label: 'Quản lí ghế ngồi',
+    to: '/cinema/seat'
   }
-}]
+],
+},
+{
+  id: 'content',
+  label: 'Quản lí nội dung',
+  icon: 'i-heroicons-inbox',
+  to: '/content',
+}
+]
 
 const footerLinks = [{
   label: 'Invite people',
