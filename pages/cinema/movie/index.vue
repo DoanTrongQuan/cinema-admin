@@ -23,7 +23,9 @@ import { useMovie } from '~/composables/movie/useMovie';
 const { movies, getAllMovie } = useMovie()
     
 
-// getAllMovie()
+onMounted(async () => {
+  await getAllMovie()
+})
 
 const products = [
   {
