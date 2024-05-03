@@ -16,13 +16,16 @@
     "@iconify-json/simple-icons": "^1.1.100",
     "@nuxt/fonts": "^0.6.1",
     "@nuxt/ui-pro": "^1.1.0",
+
     "@unovis/ts": "^1.4.0",
     "@unovis/vue": "^1.4.0",
     "@vueuse/nuxt": "^10.9.0",
+    "axios": "^1.6.8",
     "date-fns": "^3.6.0",
     "nuxt": "^3.11.2",
     "v-calendar": "^3.1.2",
-    "vuetify-nuxt-module": "^0.13.5"
+    "vuetify-nuxt-module": "^0.13.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.9",

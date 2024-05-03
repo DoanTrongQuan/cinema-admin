@@ -13,6 +13,9 @@ const state = reactive({
   password_current: '',
   password_new: ''
 })
+const showTime = ['Phim sắp chiếu','Phim đang chiếu']
+
+const showTimeSelected = ref(showTime[0])
 
 const toast = useToast()
 
@@ -75,7 +78,7 @@ async function onSubmit(event: FormSubmitEvent<any>) {
           :ui="{ container: '' }"
         >
           <UInput
-            class ="col-span-3"
+            class ="col-span-3 w-full"
             v-model="state.name"
             autocomplete="off"
             size="md"
@@ -208,40 +211,23 @@ async function onSubmit(event: FormSubmitEvent<any>) {
 
         <UFormGroup
           name="password"
-          label="Password"
-          description="Confirm your current password before setting a new one."
-          class="grid grid-cols-2 gap-2"
+          label="Thời gian chiếu"
+          class="grid grid-cols-4 gap-2"
           :ui="{ container: '' }"
         >
-          <UInput
-            id="password"
-            v-model="state.password_current"
-            type="password"
-            placeholder="Current password"
-            size="md"
-          />
-          <UInput
-            id="password_new"
-            v-model="state.password_new"
-            type="password"
-            placeholder="New password"
-            size="md"
-            class="mt-2"
-          />
+         <UInputMenu v-model="showTimeSelected" :options="showTime" />
         </UFormGroup>
       </UDashboardSection>
     </UForm>
 
-    <UDivider class="mb-4" />
 
     <UDashboardSection
-      title="Account"
-      description="No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently."
+      description=""
     >
       <div>
         <UButton
-          color="red"
-          label="Delete account"
+          color="green"
+          label="Thêm mới"
           size="md"
           @click="isDeleteAccountModalOpen = true"
         />

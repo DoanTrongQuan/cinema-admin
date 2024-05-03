@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/fonts',
     '@vueuse/nuxt',
-    "vuetify-nuxt-module"
+    "vuetify-nuxt-module",
+
   ],
   ui: {
     icons: ['heroicons', 'simple-icons'],
@@ -25,5 +26,12 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
-  }
+  },
+  runtimeConfig: {
+    app: {
+      api: {
+        baseUrl: process.env.API_URL,
+      },
+    },
+  },
 })
