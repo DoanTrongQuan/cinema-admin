@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup >
+// import AddActor from '~/components/actor/AddActor.vue'
 const links = [[{
   label: 'General',
   icon: 'i-heroicons-user-circle',
@@ -23,12 +24,15 @@ const links = [[{
   to: 'https://ui.nuxt.com/pro/purchase',
   target: '_blank'
 }]]
+
 </script>
 
 <template>
+
   <UDashboardPage>
+
     <UDashboardPanel grow>
-      <UDashboardNavbar title="Settings" />
+      <UDashboardNavbar title="Quản lí rạp chiếu phim"  class="text-2xl"/>
 
 
       <NuxtPage />

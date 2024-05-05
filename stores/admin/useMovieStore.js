@@ -1,25 +1,33 @@
-// import { defineStore } from "pinia";
+import { defineStore } from "pinia";
+import { getAllMovie,createMovie } from '~/repositories/cinema/movieRepo';
+export const useMovieStore = defineStore({
+  id: "movieStore",
+  state: () => ({
+    movies:[]
 
-// export const useMovieStore = defineStore({
-//   id: "movieStore",
-//   state: () => ({
-//     movies:[]
+  }),
+  getters: {},
+  actions: {
+    async getAllMovie(){
+        try {
+          const res = await getAllMovie()
+          this.movies = res;
 
-//   }),
-//   getters: {},
-//   actions: {
-//     async getAllMovie(){
-//         try {
-//           const res = await getAllSeat(data)
-//           this.seats = res.data;
+        } catch (error) {  
+          console.log(error);
+        }
+    },
+    async createMovie(data){
+      try {
+        const res = await createMovie(data)
+      } catch (error) { 
+        console.log(error) 
+        alert(error)
+      }
+  },
 
-//         } catch (error) {  
-//           console.log(error);
-//         }
-//     },
-
-//     clear() {
-//       this.$reset()
-//     }
-//   }
-// });
+    clear() {
+      this.$reset()
+    }
+  }
+});

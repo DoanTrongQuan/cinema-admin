@@ -1,65 +1,79 @@
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+  <div class="text-right py-6 px-5" >
+    <NuxtLink to="/cinema/movie/add-movie"><UButton color="green" variant="solid">Thêm mới</UButton></NuxtLink>
+  </div>
+  <div class="text-right pb-6 px-5 grid grid-cols-2 gap-2.5" >
+    <UInput
+    v-model ="searchMovieName"
+    icon="i-heroicons-magnifying-glass-20-solid"
+    size="lg"
+    color="green"
+    :trailing="false"
+    placeholder="Tìm kiếm theo tên phim"
+    />
+    <UInput
+    icon="i-heroicons-magnifying-glass-20-solid"
+    size="lg"
+    color="green"
+    :trailing="false"
+    placeholder="Tìm kiếm theo diễn viên hoặc đạo diễn"
+    />
+  </div>
+  <div class="bg-white overflow-y-auto">
+    <div class="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
       <h2 class="sr-only">Products</h2>
 
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        <a v-for="product in movies" :key="product.id" :href="product.href" class="group">
-          <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-            <img :src="product.imageSrc" :alt="product.imageAlt" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+        <a v-if = "searchMovieName" v-for="movie in moviesFilter" :key="movie.id" :href="movie.href" class="group ">
+          <div class="sm:aspect-h-3 sm:aspect-w-2  lg:aspect-h-4 lg:aspect-w-3 w-full  rounded-lg bg-gray-200 xl:aspect-h-11 xl:aspect-w-7">
+            <img :src="movie.image" :alt="movie.image" class="h-full w-full  group-hover:opacity-75" />
           </div>
-          <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
+          <p class="mt-1 text-lg font-medium text-gray-900">{{ movie.name }}</p>
+          <NuxtLink :to="`/cinema/movie/${movie.slug}`"><UButton @click="editMovie(movie)" color="violet" variant="solid">Chỉnh sửa</UButton></NuxtLink>
         </a>
+        <a v-else v-for="movie in movies" :key="movie.id" :href="movie.href" class="group ">
+          <div class="sm:aspect-h-3 sm:aspect-w-2  lg:aspect-h-4 lg:aspect-w-3 w-full  rounded-lg bg-gray-200 xl:aspect-h-11 xl:aspect-w-7">
+            <img :src="movie.image" :alt="movie.image" class="h-full w-full  group-hover:opacity-75" />
+          </div>
+          <p class="mt-1 text-lg font-medium text-gray-900">{{ movie.name }}</p>
+          <NuxtLink :to="`/cinema/movie/${movie.slug}`"><UButton @click="editMovie(movie)" color="violet" variant="solid">Chỉnh sửa</UButton></NuxtLink>
+        </a>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useMovie } from '~/composables/movie/useMovie';
+import { useMovieStore } from '~/stores/admin/useMovieStore';
 
 
-const { movies, getAllMovie } = useMovie()
-    
+const movieStore = useMovieStore()
+  
 
-onMounted(async () => {
-  await getAllMovie()
-})
+movieStore.getAllMovie()
 
-const products = [
-  {
-    id: 1,
-    name: 'Earthen Bottle',
-    href: '#',
-    price: '$48',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
-  },
-  {
-    id: 2,
-    name: 'Nomad Tumbler',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg',
-    imageAlt: 'Olive drab green insulated bottle with flared screw lid and flat top.',
-  },
-  {
-    id: 3,
-    name: 'Focus Paper Refill',
-    href: '#',
-    price: '$89',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg',
-    imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-  },
-  {
-    id: 4,
-    name: 'Machined Mechanical Pencil',
-    href: '#',
-    price: '$35',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg',
-    imageAlt: 'Hand holding black machined steel mechanical pencil with brass tip and top.',
-  },
-  // More products...
-]
+const movies = computed(() => {
+  return movieStore.movies;
+}) 
+
+const searchMovieName = ref('')
+const moviesFilter = ref([])
+
+watch(() => searchMovieName.value, (newValue, oldValue) => {
+    // Chuyển đổi giá trị mới và tên phim thành chữ thường trước khi so sánh
+    const searchValueLower = newValue.toLowerCase();
+    moviesFilter.value = movies.value.filter(movie => {
+      const movieNameLower = movie.name.toLowerCase();
+      return movieNameLower.includes(searchValueLower);
+    });
+  
+});
+
+
+
+const editMovie = (movie) => {
+
+}
+
 </script>
