@@ -34,7 +34,7 @@ const toast = useToast()
 const people = ref([
   { name: 'Hữu Châu'},
   { name: 'Thái Hòa'},
-  { name: 'Trevor Hansen' },
+  { name: 'Thái Hoàng' },
   { name: 'Tucker Smith'},
   { name: 'Britta Holt' },
   { name: 'Jane Smith '},
@@ -45,10 +45,11 @@ const people = ref([
 const movieType = ref([
   { name: 'Lãng mạn'},
   { name: 'Kinh dị'},
-  { name: 'Tội phạm' },
+  { name: 'Tình cảm' },
   { name: 'Tình dục'},
   { name: 'Hài hước' },
   { name: 'Dật gân'},
+  { name: 'Hành động'}
 ])
 
 const cinema = ['Cine Mỹ đình', 'Cine đan phượng','Cine giải phóng','Cine thanh xuân','Cine nghĩa lộ','Cine việt trì']
@@ -76,6 +77,10 @@ const onSubmit = async (event) => {
     }
     await movieStore.createMovie(data)
     toast.add({ title: 'Thêm phim thành công' })
+}
+
+const check = () => {
+  console.log(typeof movie.actor)
 }
 </script>
 
@@ -199,7 +204,7 @@ const onSubmit = async (event) => {
           label="Thêm diễn viên"
           :trailing="false"
           />
-        </div>
+        </div>  
 
         </div>
 
@@ -294,6 +299,13 @@ const onSubmit = async (event) => {
           label="Thêm mới"
           size="md"
           @click="createMovie"
+      />
+      <UButton
+          type = "submit"
+          color="green"
+          label="check"
+          size="md"
+          @click="check"
       />
     </UForm>
     <!-- ~/components/settings/DeleteAccountModal.vue -->

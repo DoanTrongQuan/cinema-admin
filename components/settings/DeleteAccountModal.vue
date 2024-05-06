@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useMovieStore } from '~/stores/admin/useMovieStore';
+import eventBus from '~/utils/eventBus'
+
 const model = defineModel({
   type: Boolean
 })
@@ -7,28 +10,37 @@ const toast = useToast()
 
 const loading = ref(false)
 
-function onDelete() {
+const data = ref({})
+eventBus.on('update_movie',(value) => {
+    data.value = value
+})
+
+async function callApi() {
   loading.value = true
 
-  setTimeout(() => {
+  await useMovieStore().updateMovie(data.value)
+
     loading.value = false
-    toast.add({ icon: 'i-heroicons-check-circle', title: 'Your account has been deleted', color: 'red' })
     model.value = false
-  }, 2000)
+
+}
+
+function cancelCallApi() {
+  model.value = false
 }
 </script>
 
 <template>
   <UDashboardModal
     v-model="model"
-    title="Delete account"
-    description="Are you sure you want to delete your account?"
+    title="Xác nhận lưu thay đổi"
+    description="Bạn có chắc chắn muốn thay đổi nội dung này!"
     icon="i-heroicons-exclamation-circle"
     prevent-close
     :close-button="null"
-    :ui="{
+    :ui="{  
       icon: {
-        base: 'text-red-500 dark:text-red-400'
+        base: 'text-green-500 dark:text-green-400'
       } as any,
       footer: {
         base: 'ml-16'
@@ -37,15 +49,15 @@ function onDelete() {
   >
     <template #footer>
       <UButton
-        color="red"
-        label="Delete"
+        color="green"
+        label="Xác nhận"
         :loading="loading"
-        @click="onDelete"
+        @click="callApi"
       />
       <UButton
         color="white"
-        label="Cancel"
-        @click="model = false"
+        label="Hủy bỏ"
+        @click="cancelCallApi"
       />
     </template>
   </UDashboardModal>

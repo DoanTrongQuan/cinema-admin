@@ -1,50 +1,46 @@
 <template>
 <div class="overflow-y-auto">
-    <div class="w-full" style="width: 700px !important;">
-    <UModal v-model="isShowAddSchedule" class="w-full" prevent-close >
+  <div class="w-full" style="width: 700px !important;">
+    <UModal v-model="isShowSchedule" class="w-full" prevent-close >
         <div class="py-1 px-4" >
             <div class="py-2 flex justify-end">
                 <UButton color="gray" variant="ghost" 
-                icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="closeAddSchedule" />
+                icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="closeSchedule" />
             </div>
             <div class="py-3 px-3">
-                <h1 class="text-2xl font-sans text-center font-semibold">Thêm diễn viên</h1>
+                <h1 class="text-2xl font-sans text-center font-semibold">Thêm lịch chiếu</h1>
                 <UForm  :state="actor" class="space-y-6" @submit="onSubmit">
                     <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Hình ảnh</p>
-                        <v-file-input required class="col-span-3" density = "compact" v-model="actor.image" label="File input" variant="outlined"></v-file-input>
+                        <p class="col-span-1">Phim</p>
+                        <USelectMenu
+                        class="col-span-3"
+                        v-model="movieSelected"
+                        :options="movies"
+                        placeholder="Tìm phim"
+                        searchable
+                        searchable-placeholder="Tìm phim theo tên"
+                        option-attribute="name"
+                        by="id"
+                        :search-attributes="['name']"
+                      >
+                      </USelectMenu>
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Tên diễn viên</p>
-                        <UInput required class="col-span-3" v-model="actor.name"  size="sm" />
+                        <p class="col-span-1">Phòng chiếu</p>
+                        <USelectMenu
+                        class="col-span-3"
+                        v-model="roomsSelected"
+                        :options="rooms"
+                        placeholder="Tìm phòng chiếu"
+                        searchable
+                        searchable-placeholder="Tìm phòng theo tên"
+                        option-attribute="roomName"
+                        by="id"
+                        :search-attributes="['roomName']"
+                      >
+                      </USelectMenu>
                     </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Chiều cao</p>
-                        <UInput required class="col-span-3" v-model="actor.height"  size="sm" />
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Giới tính</p>
-                        <UInputMenu required v-model="actor.gender" :options="showGender" />
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Ngày sinh</p>
-                        <UInput required class="col-span-3" v-model="actor.birthDay"  size="sm" />
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Mô tả</p>
-                        <UInput required class="col-span-3" v-model="actor.description"ize="sm" />
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Quốc gia</p>
-                        <UInput required class="col-span-3" v-model="actor.nationality" size="sm" />
-                    </div>
-                    <div class="grid grid-cols-4 gap-2 mt-5">
-                        <p class="col-span-1">Đường dẫn</p>
-                        <UInput required class="col-span-3" v-model ="actor.slug" size="sm" />
-                    </div>
-                    <div class="mt-3 text-center">
-                        <UButton type ="submit" class="mt-3"  size="sm">Thêm mới</UButton> 
-                    </div>     
+
                 </UForm>
 
             </div>
@@ -77,7 +73,7 @@
     { value: 5, title: '05' },
     { value: 10, title: '10' },
     { value: 15, title: '15' },
-    { value: 20, title: '20' }A
+    { value: 20, title: '20' }
     ]" v-model:search="search" :items="items">
     </v-data-table>
   </v-card>
@@ -89,25 +85,75 @@
 
 <script setup>
 import { useScheduleStore } from '~/stores/admin/useScheduleStore';
-
+import EditSchedule from '~/components/schedule/EditSchedule.vue'
 const scheduleStore = useScheduleStore()
 
+
 scheduleStore.getAllSchedule()
-const isShowAddSchedule = ref(false)
+scheduleStore.getAllMovieSchedule()
+scheduleStore.getAllRoomSchedule()
+
+const isShowSchedule = ref(false)
+
+const { movies, rooms } = scheduleStore
+
+
 
 const items = computed(() => {
     return scheduleStore.schedules
 })
-  const search = ref('');
+const search = ref('');
 
   const addSchedule = () => {
-    isShowAddSchedule.value = true;
+    isShowSchedule.value = true;
   }
-
-  const closeAddSchedule = () => {
+// const check = () => {
+//   console.log(movieSelected.value.id)
+// }
+  const closeSchedule = () => {
     alert('Những thay đổi chưa được lưu')
-    isShowAddSchedule.value = false;
+    isShowSchedule.value = false;
   }
+//   const movies  = [
+//     {
+//         id: 1,
+//         name: "Cuộc đời của anh ấy"
+//     },
+//     {
+//         id: 2,
+//         name: "Cuộc đời của anh ấy"
+//     },
+//     {
+//         id: 3,
+//         name: "Cuộc đời của anh ấy"
+//     },
+//     {
+//         id: 4,
+//         name: "Cuộc đời của anh ấy"
+//     },
+//     {
+//         id: 5,
+//         name: "Ma ám"
+//     },
+//     {
+//         id: 6,
+//         name: "Kinh hoàng"
+//     },
+//     {
+//         id: 7,
+//         name: "Nỗi sợ kinh hoàng"
+//   }
+// ]
+
+const movieSelected = ref(movies[0]?.name || '')
+
+// const rooms = [
+//     {
+//         id: 1,
+//         roomName: "P103"
+//     }
+// ]
+const roomsSelected = ref(rooms[0]?.roomName|| '')
 //   const items = ref([
 //     {
 //       name: 'Nebula GTX 3080',

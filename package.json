@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-ui-pro-template-dashboard",
+  "name": "Admin",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,7 +24,6 @@
     "date-fns": "^3.6.0",
     "mitt": "^3.0.1",
     "nuxt": "^3.11.2",
-    "pinia": "^2.1.7",
     "v-calendar": "^3.1.2",
     "vuetify-nuxt-module": "^0.13.5",
     "yup": "^1.4.0"

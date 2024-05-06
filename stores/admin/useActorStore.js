@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import { createActor } from '~/repositories/cinema/actorRepo';
+import { createActor,getAllActor } from '~/repositories/cinema/actorRepo';
 
 export const useActorStore = defineStore({
   id: "actorStore",
   state: () => ({
-
+    actorName:[]
   }),
   getters: {},
   actions: {
@@ -16,6 +16,15 @@ export const useActorStore = defineStore({
           alert(error);
         }
     },
+
+    async getAllActor(){
+      try {
+        const res = await getAllActor()
+        this.actorName = res.data;
+      } catch (error) {  
+        alert(error);
+      }
+  },
 
     clear() {
       this.$reset()

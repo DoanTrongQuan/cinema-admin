@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
-import { getAllSchedule} from '~/repositories/cinema/scheduleRepo';
+import { getAllSchedule,getAllMovieSchedule,getAllRoomSchedule} from '~/repositories/cinema/scheduleRepo';
 
 export const useScheduleStore = defineStore({
   id: "scheduleStore",
   state: () => ({
-    schedules:[]
+    schedules:[],
+    rooms:[],
+    movies:[],
 
   }),
   getters: {},
@@ -12,16 +14,37 @@ export const useScheduleStore = defineStore({
     async getAllSchedule(){
         try {
           const res = await getAllSchedule()
-          this.schedules = res;
+          this.schedules = res.data;
 
         } catch (error) {  
-          console.log(error);
+          alert(error.response.data)
         }
     },
+    async getAllMovieSchedule(){
+      try {
+        const res = await getAllSchedule()
+        this.movies = res.data;
+
+      } catch (error) {  
+        alert(error.response.data)
+      }
   },
+  async getAllRoomSchedule(){
+    try {
+      const res = await getAllSchedule()
+      this.rooms = res.data;
+
+    } catch (error) {  
+      alert(error.response.data)
+    }
+},
 
     clear() {
       this.$reset()
     }
+
+  },
+  
+
 
 });

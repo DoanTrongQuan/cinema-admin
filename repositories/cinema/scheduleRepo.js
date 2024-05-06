@@ -6,3 +6,14 @@ export const getAllSchedule = () => {
   return Cinema.axiosAuth.get(url)
 }
 
+export const getAllMovieSchedule = () => {
+  const url = prefix + 'movie/get-all-movie-schedule-by-admin'
+  return Cinema.axiosClient.get(url)
+}
+
+export const getAllRoomSchedule = () => {
+  const url = prefix + 'room/get-all-room-schedule-by-admin'
+  return Cinema.axiosClient.get(url)
+}
+
+
