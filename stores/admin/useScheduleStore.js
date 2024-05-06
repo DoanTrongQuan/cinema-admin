@@ -11,6 +11,15 @@ export const useScheduleStore = defineStore({
   }),
   getters: {},
   actions: {
+    async getAllMovieSchedule(){
+      try {
+        const res = await getAllMovieSchedule()
+        this.movies = res.data;
+
+      } catch (error) {  
+        alert(error.response.data)
+      }
+  },
     async getAllSchedule(){
         try {
           const res = await getAllSchedule()
@@ -20,18 +29,10 @@ export const useScheduleStore = defineStore({
           alert(error.response.data)
         }
     },
-    async getAllMovieSchedule(){
-      try {
-        const res = await getAllSchedule()
-        this.movies = res.data;
 
-      } catch (error) {  
-        alert(error.response.data)
-      }
-  },
   async getAllRoomSchedule(){
     try {
-      const res = await getAllSchedule()
+      const res = await getAllRoomSchedule()
       this.rooms = res.data;
 
     } catch (error) {  
