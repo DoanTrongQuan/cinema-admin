@@ -10,8 +10,6 @@ export const useAuth = () => {
 
   function logout() {
     //xóa lại tất cả giá trị trong cookie về rỗng
-
-
     handleSaveCookieAuth({})
     handleSaveCookieProfile({})
     router.replace('/login')

@@ -41,7 +41,7 @@
 
 import { useLogin } from '~/composables/authentication/useLogin'
 
-const {  onSubmit, state,schema } = useLogin();
+const {  onSubmit, state, schema } = useLogin();
       
 definePageMeta({
   layout: false

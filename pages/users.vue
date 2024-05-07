@@ -1,179 +1,154 @@
-<script lang="ts" setup>
-import type { User } from '~/types'
+<script  setup>
+import { useUserStore } from '~/stores/admin/useUserStore';
 
-const defaultColumns = [
+const userStore = useUserStore()
+
+userStore.getAllUser()
+
+const users = computed(() => {
+  return userStore.users;
+})
+const search = ref('');
+// const items = [
 //   {
-//   key: 'id',
-//   label: '#'
-// }, 
-{
-  key: 'name',
-  label: 'Name',
-  sortable: true
-}, {
-  key: 'email',
-  label: 'Email',
-  sortable: true
-}, {
-  key: 'location',
-  label: 'Location'
-}, {
-  key: 'status',
-  label: 'Status'
-}]
+//     name: 'Nebula GTX 3080',
+//     image: '1.png',
+//     price: 699.99,
+//     rating: 5,
+//     stock: true,
+//   },
+//   {
+//     name: 'Galaxy RTX 3080',
+//     image: '2.png',
+//     price: 799.99,
+//     rating: 4,
+//     stock: false,
+//   },
+//   {
+//     name: 'Orion RX 6800 XT',
+//     image: '3.png',
+//     price: 649.99,
+//     rating: 3,
+//     stock: true,
+//   },
+//   {
+//     name: 'Vortex RTX 3090',
+//     image: '4.png',
+//     price: 1499.99,
+//     rating: 4,
+//     stock: true,
+//   },
+//   {
+//     name: 'Cosmos GTX 1660 Super',
+//     image: '5.png',
+//     price: 299.99,
+//     rating: 4,
+//     stock: false,
+//   },
+// ];
 
-const q = ref('')
-const selected = ref<User[]>([])
-const selectedColumns = ref(defaultColumns)
-const selectedStatuses = ref([])
-const selectedLocations = ref([])
-const sort = ref({ column: 'id', direction: 'asc' as const })
-const input = ref<{ input: HTMLInputElement }>()
-const isNewUserModalOpen = ref(false)
-
-const columns = computed(() => defaultColumns.filter(column => selectedColumns.value.includes(column)))
-
-const query = computed(() => ({ q: q.value, statuses: selectedStatuses.value, locations: selectedLocations.value, sort: sort.value.column, order: sort.value.direction }))
-
-const { data: users, pending } = await useFetch<User[]>('/api/users', { query, default: () => [] })
-
-const defaultLocations = users.value.reduce((acc, user) => {
-  if (!acc.includes(user.location)) {
-    acc.push(user.location)
-  }
-  return acc
-}, [] as string[])
-
-const defaultStatuses = users.value.reduce((acc, user) => {
-  if (!acc.includes(user.status)) {
-    acc.push(user.status)
-  }
-  return acc
-}, [] as string[])
-
-function onSelect(row: User) {
-  const index = selected.value.findIndex(item => item.id === row.id)
-  if (index === -1) {
-    selected.value.push(row)
-  } else {
-    selected.value.splice(index, 1)
-  }
+const check  = () => {
+  console.log(users.value)
 }
 
-defineShortcuts({
-  '/': () => {
-    input.value?.input?.focus()
-  }
+const  showConfirmAuthor = (email) => {
+  newRoleUser.value.newEmail = email
+  isShowConfirm.value = true
+}
+
+const newRoleUser = ref({
+  password:'',
+  newEmail:''
 })
+const isShowConfirm = ref(false)
+
+const close = () => {
+  isShowConfirm.value = false
+}
+const password = ref('')
+
+const confirmAuthor  = () => {
+  userStore.confirmAuthor(newRoleUser.value)
+}
+
 </script>
 
 <template>
   <UDashboardPage>
+    <div>
+      <UModal class="p-3" v-model="isShowConfirm" prevent-close>
+        <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+          <template #header>
+            <div class="flex items-center  justify-between">
+              <h3 class="text-base justify-center font-semibold leading-6 text-gray-900 dark:text-white">
+                Xác nhận quyền truy cập
+              </h3>
+              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="close" />
+            </div>
+          </template>
+
+          <UInput type="password" v-model="newRoleUser.password" placeholder="Mật khẩu"/>
+          <div class="mx-auto mt-3 text-center" >
+            <UButton @click = "confirmAuthor">Xác nhận</UButton>
+          </div>
+          
+        </UCard>
+      </UModal>
+    </div>
     <UDashboardPanel grow>
       <UDashboardNavbar
-        title="Users"
+        title="Quản lí người dùng"
         :badge="users.length"
       >
-        <template #right>
-          <UInput
-            ref="input"
-            v-model="q"
-            icon="i-heroicons-funnel"
-            autocomplete="off"
-            placeholder="Filter users..."
-            class="hidden lg:block"
-            @keydown.esc="$event.target.blur()"
-          >
-            <template #trailing>
-              <UKbd value="/" />
-            </template>
-          </UInput>
-
-          <UButton
-            label="New user"
-            trailing-icon="i-heroicons-plus"
-            color="gray"
-            @click="isNewUserModalOpen = true"
-          />
-        </template>
       </UDashboardNavbar>
+      <v-card flat>
+        <v-card-title class="d-flex align-center pe-2">
+          <v-spacer></v-spacer>
 
-      <UDashboardToolbar>
-        <template #left>
-          <USelectMenu
-            v-model="selectedStatuses"
-            icon="i-heroicons-check-circle"
-            placeholder="Status"
-            multiple
-            :options="defaultStatuses"
-            :ui-menu="{ option: { base: 'capitalize' } }"
-          />
-          <USelectMenu
-            v-model="selectedLocations"
-            icon="i-heroicons-map-pin"
-            placeholder="Location"
-            :options="defaultLocations"
-            multiple
-          />
-        </template>
+          <v-text-field
+            density="compact"
+            label="Tìm kiếm người dùng"
+            prepend-inner-icon="mdi-magnify"
+            variant="solo-filled"
+            flat
+            hide-details
+            single-line
+          ></v-text-field>
+        </v-card-title>
 
-        <template #right>
-          <USelectMenu
-            v-model="selectedColumns"
-            icon="i-heroicons-adjustments-horizontal-solid"
-            :options="defaultColumns"
-            multiple
-            class="hidden lg:block"
-          >
-            <template #label>
-              Display
-            </template>
-          </USelectMenu>
-        </template>
-      </UDashboardToolbar>
-
-      <UDashboardModal
-        v-model="isNewUserModalOpen"
-        title="New user"
-        description="Add a new user to your database"
-        :ui="{ width: 'sm:max-w-md' }"
-      >
-        <!-- ~/components/users/UsersForm.vue -->
-        <UsersForm @close="isNewUserModalOpen = false" />
-      </UDashboardModal>
-
-      <UTable
-        v-model="selected"
-        v-model:sort="sort"
-        :rows="users"
-        :columns="columns"
-        :loading="pending"
-        sort-mode="manual"
-        class="w-full"
-        :ui="{ divide: 'divide-gray-200 dark:divide-gray-800' }"
-        @select="onSelect"
-      >
-        <template #name-data="{ row }">
-          <div class="flex items-center gap-3">
-            <UAvatar
-              v-bind="row.avatar"
-              :alt="row.name"
-              size="xs"
-            />
-
-            <span class="text-gray-900 dark:text-white font-medium">{{ row.name }}</span>
-          </div>
-        </template>
-
-        <template #status-data="{ row }">
-          <UBadge
-            :label="row.status"
-            :color="row.status === 'subscribed' ? 'green' : row.status === 'bounced' ? 'orange' : 'red'"
-            variant="subtle"
-            class="capitalize"
-          />
-        </template>
-      </UTable>
+        <v-divider></v-divider>
+        <v-data-table :items-per-page-options="[
+          { value: 5, title: '05' },
+          { value: 10, title: '10' },
+          { value: 15, title: '15' },
+          { value: 20, title: '20' }
+          ]" v-model:search="search" :items="users">
+          <template v-slot:item.role="{ item }">
+            <div class="flex">
+            {{ item.role }}
+             <UPopover mode="hover" >
+                <v-icon @click = "showConfirmAuthor(item.email)" color ="blue-darken-2" icon="mdi mdi-pencil-box-outline"></v-icon>
+              <template #panel>
+                <div class="p-1">
+                  Bạn có chắn chắn muốn nhượng quyền quản trị viên!
+                </div>
+              </template>
+             </UPopover>
+            </div>     
+          </template>
+          <template v-slot:item.isActive="{ item }">
+            <div class="">
+              <v-chip
+                :color="item.isActive === 'Đã kích hoạt' ? 'green' : 'red'"
+                :text="item.isActive"
+                class="text-uppercase"
+                size="small"
+                label
+              ></v-chip>
+            </div>
+          </template>
+        </v-data-table>
+      </v-card>
     </UDashboardPanel>
   </UDashboardPage>
 </template>

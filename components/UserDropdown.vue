@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useAuth } from '~/composables/authentication/useAuth';
 const { isHelpSlideoverOpen } = useDashboard()
 const { isDashboardSearchModalOpen } = useUIState()
 const { metaSymbol } = useShortcuts()
 
+const { logout } = useAuth()
 const items = computed(() => [
   [{
     slot: 'account',
@@ -41,7 +43,8 @@ const items = computed(() => [
     target: '_blank'
   }], [{
     label: 'Sign out',
-    icon: 'i-heroicons-arrow-left-on-rectangle'
+    icon: 'i-heroicons-arrow-left-on-rectangle',
+    click: () => logout()
   }]
 ])
 </script>

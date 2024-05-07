@@ -11,6 +11,11 @@ export const signUp = data => {
   return Cinema.axiosClient.post(url, data)
   }
 
+  export const confirmAuthor = data => {
+    const url = prefix + 'user/confirm-author'
+    return Cinema.axiosAuth.post(url,data)
+    }
+
   
 export const getAccessTokenByRefreshToken = refreshToken => {
   const url = prefix + 'auth/refresh-token?refreshToken='

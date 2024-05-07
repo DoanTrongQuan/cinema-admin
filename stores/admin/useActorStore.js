@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { createActor,getAllActor } from '~/repositories/cinema/actorRepo';
 
+
 export const useActorStore = defineStore({
   id: "actorStore",
   state: () => ({
