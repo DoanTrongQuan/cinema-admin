@@ -16,4 +16,9 @@ export const getAllRoomSchedule = () => {
   return Cinema.axiosClient.get(url)
 }
 
+export const createSchedule = (data) => {
+  const url = prefix + 'schedule/create-schedule'
+  return Cinema.axiosAuth.post(url,data)
+}
+
 

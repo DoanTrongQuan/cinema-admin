@@ -1,90 +1,49 @@
-<script setup lang="ts">
-import { sub } from 'date-fns'
-import type { Period, Range } from '~/types'
+<script setup>
+import { Bar } from 'vue-chartjs';
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+} from 'chart.js';
 
-const { isNotificationsSlideoverOpen } = useDashboard()
 
-const items = [[{
-  label: 'New mail',
-  icon: 'i-heroicons-paper-airplane',
-  to: '/inbox'
-}, {
-  label: 'New user',
-  icon: 'i-heroicons-user-plus',
-  to: '/users'
-}]]
+definePageMeta({
+  middleware: 'auth',
+})
 
-const range = ref<Range>({ start: sub(new Date(), { days: 14 }), end: new Date() })
-const period = ref<Period>('daily')
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
+
+const chartData = ref({
+  labels: ['January', 'February', 'March', 'April', 'May'],
+  datasets: [
+    {
+      label: 'Data One',
+      backgroundColor: '#f87979',
+      data: [40, 20, 12, 50, 10],
+    },
+  ],
+});
+const chartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: false,
+});
 </script>
 
 <template>
   <UDashboardPage>
     <UDashboardPanel grow>
-      <UDashboardNavbar title="Home">
-        <template #right>
-          <UTooltip
-            text="Notifications"
-            :shortcuts="['N']"
-          >
-            <UButton
-              color="gray"
-              variant="ghost"
-              square
-              @click="isNotificationsSlideoverOpen = true"
-            >
-              <UChip
-                color="red"
-                inset
-              >
-                <UIcon
-                  name="i-heroicons-bell"
-                  class="w-5 h-5"
-                />
-              </UChip>
-            </UButton>
-          </UTooltip>
-
-          <UDropdown :items="items">
-            <UButton
-              icon="i-heroicons-plus"
-              size="md"
-              class="ml-1.5 rounded-full"
-            />
-          </UDropdown>
-        </template>
-      </UDashboardNavbar>
-
-      <UDashboardToolbar>
-        <template #left>
-          <!-- ~/components/home/HomeDateRangePicker.vue -->
-          <HomeDateRangePicker
-            v-model="range"
-            class="-ml-2.5"
-          />
-
-          <!-- ~/components/home/HomePeriodSelect.vue -->
-          <HomePeriodSelect
-            v-model="period"
-            :range="range"
-          />
-        </template>
-      </UDashboardToolbar>
-
-      <UDashboardPanelContent>
-        <!-- ~/components/home/HomeChart.vue -->
-        <HomeChart
-          :period="period"
-          :range="range"
-        />
-
-        <div class="grid lg:grid-cols-2 lg:items-start gap-8 mt-8">
-          <!-- ~/components/home/HomeSales.vue -->
-          <HomeSales />
-          <!-- ~/components/home/HomeCountries.vue -->
-          <HomeCountries />
-        </div>
-      </UDashboardPanelContent>
+      <Bar :data="chartData" :options="chartOptions" />
     </UDashboardPanel>
   </UDashboardPage>
 </template>

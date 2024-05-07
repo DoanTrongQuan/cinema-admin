@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import type { User } from '~/types'
 
-const defaultColumns = [{
-  key: 'id',
-  label: '#'
-}, {
+const defaultColumns = [
+//   {
+//   key: 'id',
+//   label: '#'
+// }, 
+{
   key: 'name',
   label: 'Name',
   sortable: true

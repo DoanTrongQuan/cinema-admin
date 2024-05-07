@@ -5,7 +5,7 @@ const { isHelpSlideoverOpen } = useDashboard()
 
 const links = [{
   id: 'home',
-  label: 'Home',
+  label: 'Trang chủ',
   icon: 'i-heroicons-home',
   to: '/',
   tooltip: {
