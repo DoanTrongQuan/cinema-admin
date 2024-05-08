@@ -9,12 +9,13 @@ import {
   CategoryScale,
   LinearScale,
 } from 'chart.js';
-
+import { useDashboardStore } from '~/stores/admin/useDashboardStore';
 
 definePageMeta({
   middleware: 'auth',
 })
 
+const dashboardStore = useDashboardStore()
 ChartJS.register(
   Title,
   Tooltip,
@@ -23,17 +24,13 @@ ChartJS.register(
   CategoryScale,
   LinearScale
 );
+//lấy dữ liệu doanh thu cho cinema
+dashboardStore.getRevenueCinema()
 
-const chartData = ref({
-  labels: ['January', 'February', 'March', 'April', 'May'],
-  datasets: [
-    {
-      label: 'Data One',
-      backgroundColor: '#f87979',
-      data: [40, 20, 12, 50, 10],
-    },
-  ],
-});
+const chartData = computed(() => {
+  return dashboardStore.chartData
+})
+
 const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
@@ -44,6 +41,7 @@ const chartOptions = ref({
   <UDashboardPage>
     <UDashboardPanel grow class="overflow-y-auto">
       <Bar :data="chartData" :options="chartOptions" />
+      
     </UDashboardPanel>
   </UDashboardPage>
 </template>

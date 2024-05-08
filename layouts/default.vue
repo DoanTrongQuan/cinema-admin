@@ -99,14 +99,14 @@ const colors = computed(() => defaultColors.value.map(color => ({ ...color, acti
       :resizable="{ min: 200, max: 300 }"
       collapsible
     >
-      <UDashboardNavbar
+      <!-- <UDashboardNavbar
         class="!border-transparent"
         :ui="{ left: 'flex-1' }"
       >
         <template #left>
           <TeamsDropdown />
         </template>
-      </UDashboardNavbar>
+      </UDashboardNavbar> -->
 
       <UDashboardSidebar>
         <template #header>
@@ -117,14 +117,14 @@ const colors = computed(() => defaultColors.value.map(color => ({ ...color, acti
 
         <UDivider />
 
-        <UDashboardSidebarLinks
+        <!-- <UDashboardSidebarLinks
           :links="[{ label: 'Colors', draggable: true, children: colors }]"
           @update:links="colors => defaultColors = colors"
-        />
+        /> -->
 
         <div class="flex-1" />
 
-        <UDashboardSidebarLinks :links="footerLinks" />
+        <!-- <UDashboardSidebarLinks :links="footerLinks" /> -->
 
         <UDivider class="sticky bottom-0" />
 
