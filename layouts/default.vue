@@ -50,7 +50,11 @@ const links = [{
   {
     label: 'Quản lí ghế ngồi',
     to: '/cinema/seat'
-  }
+  },
+  {
+    label: 'Quản lí đồ ăn',
+    to: '/cinema/food'
+  },
 ],
 },
 {
