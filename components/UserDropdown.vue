@@ -1,48 +1,17 @@
-<script setup lang="ts">
+<script setup>
 import { useAuth } from '~/composables/authentication/useAuth';
-const { isHelpSlideoverOpen } = useDashboard()
-const { isDashboardSearchModalOpen } = useUIState()
-const { metaSymbol } = useShortcuts()
+import { useProfile } from '~/composables/useProfile';
+
 
 const { logout } = useAuth()
+const { userName } = useProfile();
 const items = computed(() => [
-  [{
-    slot: 'account',
-    label: '',
-    disabled: true
-  }], [{
-    label: 'Settings',
-    icon: 'i-heroicons-cog-8-tooth',
-    to: '/settings'
-  }, {
-    label: 'Command menu',
-    icon: 'i-heroicons-command-line',
-    shortcuts: [metaSymbol.value, 'K'],
-    click: () => {
-      isDashboardSearchModalOpen.value = true
-    }
-  }, {
-    label: 'Help & Support',
-    icon: 'i-heroicons-question-mark-circle',
-    shortcuts: ['?'],
-    click: () => isHelpSlideoverOpen.value = true
-  }], [{
-    label: 'Documentation',
-    icon: 'i-heroicons-book-open',
-    to: 'https://ui.nuxt.com/pro/getting-started',
-    target: '_blank'
-  }, {
-    label: 'GitHub repository',
-    icon: 'i-simple-icons-github',
-    to: 'https://github.com/nuxt-ui-pro/dashboard',
-    target: '_blank'
-  }, {
-    label: 'Buy Nuxt UI Pro',
-    icon: 'i-heroicons-credit-card',
-    to: 'https://ui.nuxt.com/pro/purchase',
-    target: '_blank'
-  }], [{
-    label: 'Sign out',
+[{
+  label:'Thông tin cá nhân',
+
+}],
+[{
+    label: 'Đăng xuất',
     icon: 'i-heroicons-arrow-left-on-rectangle',
     click: () => logout()
   }]
@@ -62,12 +31,12 @@ const items = computed(() => [
         color="gray"
         variant="ghost"
         class="w-full"
-        label="Benjamin"
+        :label="userName"
         :class="[open && 'bg-gray-50 dark:bg-gray-800']"
       >
         <template #leading>
           <UAvatar
-            src="https://avatars.githubusercontent.com/u/739984?v=4"
+            src=""
             size="2xs"
           />
         </template>

@@ -11,35 +11,35 @@
                 <UForm  :state="actor" class="space-y-6" @submit="onSubmit">
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Hình ảnh</p>
-                        <v-file-input required class="col-span-3" density = "compact" v-model="actor.image" label="File input" variant="outlined"></v-file-input>
+                        <v-file-input class="col-span-3" density = "compact" v-model="actor.image" label="File input" variant="outlined"></v-file-input>
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Tên diễn viên</p>
-                        <UInput required class="col-span-3" v-model="actor.name"  size="sm" />
+                        <UInput  class="col-span-3" v-model="actor.name"  size="sm" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Chiều cao</p>
-                        <UInput required class="col-span-3" v-model="actor.height"  size="sm" />
+                        <UInput  class="col-span-3" v-model="actor.height"  size="sm" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Giới tính</p>
-                        <UInputMenu required v-model="actor.gender" :options="showGender" />
+                        <UInputMenu  v-model="actor.gender" :options="showGender" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Ngày sinh</p>
-                        <UInput required class="col-span-3" v-model="actor.birthDay"  size="sm" />
+                        <UInput  class="col-span-3" v-model="actor.birthDay"  size="sm" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Mô tả</p>
-                        <UInput required class="col-span-3" v-model="actor.description"ize="sm" />
+                        <UInput  class="col-span-3" v-model="actor.description"ize="sm" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Quốc gia</p>
-                        <UInput required class="col-span-3" v-model="actor.nationality" size="sm" />
+                        <UInput  class="col-span-3" v-model="actor.nationality" size="sm" />
                     </div>
                     <div class="grid grid-cols-4 gap-2 mt-5">
                         <p class="col-span-1">Đường dẫn</p>
-                        <UInput required class="col-span-3" v-model ="actor.slug" size="sm" />
+                        <UInput  class="col-span-3" v-model ="actor.slug" size="sm" />
                     </div>
                     <div class="mt-3 text-center">
                         <UButton type ="submit" class="mt-3"  size="sm">Thêm mới</UButton> 

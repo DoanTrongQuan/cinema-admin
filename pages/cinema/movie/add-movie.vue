@@ -2,10 +2,14 @@
 import eventBus from '~/utils/eventBus'
 import AddActor from '~/components/actor/AddActor.vue'
 import { useMovieStore } from '~/stores/admin/useMovieStore';
+import { useActorStore } from '~/stores/admin/useActorStore'
 
 const isDeleteAccountModalOpen = ref(false)
 const movieStore = useMovieStore()
+const actorStore = useActorStore()
 
+
+actorStore.getAllActor()
 const movie = reactive({
   movieDuration: '',
   endTime: '',
@@ -31,16 +35,10 @@ const showTimeSelected = ref(showTime[0])
 
 const toast = useToast()
 
-const people = ref([
-  { name: 'Hữu Châu'},
-  { name: 'Thái Hòa'},
-  { name: 'Thái Hoàng' },
-  { name: 'Tucker Smith'},
-  { name: 'Britta Holt' },
-  { name: 'Jane Smith '},
-  { name: 'John Smith'},
-  { name: 'Sandra Williams'},
-]);
+const people = computed(() => {
+  return actorStore.actorName
+})
+
 
 const movieType = ref([
   { name: 'Lãng mạn'},
@@ -75,8 +73,13 @@ const onSubmit = async (event) => {
       codeCinema:event.data.codeCinema,
       isUpcoming:event.data.isUpcoming
     }
-    await movieStore.createMovie(data)
-    toast.add({ title: 'Thêm phim thành công' })
+
+    try {
+      await movieStore.createMovie(data)
+      toast.add({ title: 'Thêm phim thành công' })
+    } catch (error) {
+    }
+
 }
 
 const check = () => {
@@ -118,9 +121,7 @@ const check = () => {
           />
       </div>
 
-        <div
-          class="grid grid-cols-4 gap-2"
-        >
+        <div class="grid grid-cols-4 gap-2">
           <p class="col-span-1">Đường dẫn</p>
           <UInput
             class ="col-span-2"
@@ -133,26 +134,31 @@ const check = () => {
         </div>
         <div
           class="grid grid-cols-4 gap-2"
-        >
-          <p class="col-span-1">Ngày công chiếu, ngày kết thúc"</p>
+          >
+          <p class="col-span-1">Ngày công chiếu"</p>
           <div class="col-span-2">
             <UInput
             id="password"
+            type="datetime-local"
             v-model="movie.premiereDate"
             placeholder="Ngày công chiếu"
             size="md"
             />
-            <UInput
-            id="password_new"
-            v-model="movie.endTime"
-
-            placeholder="Ngày kết thúc"
-            size="md"
-            class="mt-2"
-            />
+            </div>
           </div>
+            <div class="grid grid-cols-4 gap-2">
+              <p class = "col-span-1"> ngày kết thúc</p>
+                <UInput
+                id="password_new"
+                v-model="movie.endTime"
+                type="datetime-local"
+                placeholder="Ngày kết thúc"
+                size="md"
+                class="mt-2 col-span-2"
+                />
+            </div>
 
-          </div>
+
         <div
           class="grid grid-cols-4 gap-2"
         >

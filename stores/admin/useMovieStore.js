@@ -19,6 +19,7 @@ export const useMovieStore = defineStore({
 
         } catch (error) {  
           console.log(error.response.data);
+          throw error;
         }
     },
     async createMovie(data){
@@ -27,6 +28,7 @@ export const useMovieStore = defineStore({
       } catch (error) { 
         console.log(error) 
         alert(error.response.data)
+        throw error;
       }
     },
     async updateMovie(data){

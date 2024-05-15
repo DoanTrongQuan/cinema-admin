@@ -22,11 +22,12 @@
             </div>
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Tên combo</p>
-                <UInput class = "col-span-2" v-model="newFood.nameOfFood"></UInput>
+                <UInput required class = "col-span-2" v-model="newFood.nameOfFood"></UInput>
             </div>
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Mô tả</p>
                 <UTextarea
+                required
                 class = "col-span-2"
                 v-model="newFood.description"
                 :rows="5"
@@ -36,7 +37,7 @@
             </div>
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Giá</p>
-                <UInput class = "col-span-2" v-model="newFood.price"></UInput>
+                <UInput required class = "col-span-2" v-model="newFood.price"></UInput>
             </div>
             <div class="w-full flex justify-center">
                <UButton @click.prevent = "createFood">Thêm</UButton> 

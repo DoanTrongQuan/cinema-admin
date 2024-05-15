@@ -16,12 +16,7 @@ const links = [{
   id: 'inbox',
   label: 'Quản lí hóa đơn',
   icon: 'i-heroicons-inbox',
-  to: '/inbox',
-  badge: '4',
-  tooltip: {
-    text: 'Inbox',
-    shortcuts: ['G', 'I']
-  }
+  to: '/bill',
 }, {
   id: 'users',
   label: 'Quản lí người dùng',

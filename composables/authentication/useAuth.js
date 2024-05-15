@@ -1,4 +1,4 @@
-import { login, signUp, getAccessTokenByRefreshToken } from "~/repositories/cinema/authRepo";
+import { login, getAccessTokenByRefreshToken } from "~/repositories/cinema/authRepo";
 import { useProfile } from "../useProfile";
 import { useToken } from "./useToken"
 
@@ -34,11 +34,7 @@ export const useAuth = () => {
       }
       
     },
-  
-    async signUp(formData) {
-      const response = await signUp(formData);
-      return response
-    } , 
+
     
     async getNewToken() {
       try {

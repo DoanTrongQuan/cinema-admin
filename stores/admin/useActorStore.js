@@ -12,9 +12,10 @@ export const useActorStore = defineStore({
     async createActor(data){
         try {
           const res = await createActor(data)
-         
+         return res
         } catch (error) {  
-          alert(error);
+          alert(error.response.data);
+          throw error
         }
     },
 
