@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { getAllMovie,createMovie,getMovieType,getAllCinemaName,getMovie,updateMovie } from '~/repositories/cinema/movieRepo';
+
 export const useMovieStore = defineStore({
 
 
@@ -8,7 +9,7 @@ export const useMovieStore = defineStore({
     movies:[],
     movie:{},
     movieType:[],
-    cinemaName:[]
+    cinemaName:[],
   }),
   getters: {},
   actions: {
@@ -25,6 +26,7 @@ export const useMovieStore = defineStore({
     async createMovie(data){
       try {
         const res = await createMovie(data)
+        toast.add({ title: 'Thêm Phim thành công' })
       } catch (error) { 
         console.log(error) 
         alert(error.response.data)
@@ -35,7 +37,6 @@ export const useMovieStore = defineStore({
       try {
         const res = await updateMovie(data)
         this.movie = res.data;
-        
       } catch (error) { 
         console.log(error) 
         alert(error.response.data)

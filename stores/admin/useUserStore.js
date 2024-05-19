@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { getAllUser } from '~/repositories/cinema/userRepo';
 import { confirmAuthor } from '~/repositories/cinema/authRepo'
-
+const toast = useToast()
 export const useUserStore = defineStore({
   id: "userStore",
   state: () => ({

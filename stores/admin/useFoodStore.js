@@ -6,16 +6,14 @@ export const useFoodStore = defineStore({
     state: () => ({
         foods:[],
         foodDetail:{},
-        isLoading:false
+        isLoading:false,
     }),
     getters: {},
     actions: {
       async createFood(data){
           try {
             const res = await createFood(data)
-            alert("Thêm mới thành công")
             this.foods.push(res.data)
-
           } catch (error) {  
             alert(error.response.data)
           }
@@ -58,7 +56,7 @@ export const useFoodStore = defineStore({
             break;
           }
         }
-        alert("Cập nhật thành công")
+        toast.add({ title: 'Cập nhật thành công' })
       } catch (error) {  
         alert(error.response.data)
       }finally{

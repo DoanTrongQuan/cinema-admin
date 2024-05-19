@@ -7,7 +7,6 @@ export const useScheduleStore = defineStore({
     schedules:[],
     rooms:[],
     movies:[],
-
   }),
   getters: {},
   actions: {
@@ -15,7 +14,7 @@ export const useScheduleStore = defineStore({
         try {
           const res = await getAllMovieSchedule()
           this.movies = res.data;
-
+          
         } catch (error) {  
           alert(error.response.data)
         }
@@ -42,10 +41,6 @@ export const useScheduleStore = defineStore({
     async createSchedule(data){
       try {
         const res = await createSchedule(data)
-        console.log(res.data)
-        if(res.data.status === 200) {
-          alert("Tạo lịch chiếu thành công")
-        }
       } catch (error) {  
         alert(error.response.data)
       }

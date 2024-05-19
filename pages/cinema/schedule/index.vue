@@ -82,7 +82,7 @@
                     </UInput>
                   </div>
                     <UButton @click = "createSchedule">Thêm mới</UButton>
-                    <UButton @click = "check">check</UButton>
+                    <!-- <UButton @click = "check">check</UButton> -->
                 </UForm>
 
             </div>
@@ -90,6 +90,37 @@
         </div>
 
     </UModal>
+    <UModal v-model="isShowDeleteSchedule" class="w-full" prevent-close>
+        <div class="py-1 px-4">
+          <div class="py-2 flex justify-end">
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1"
+              @click="isShowDeleteSchedule = false"
+            />
+          </div>
+          <div class="py-3 px-3">
+            <h1 class="text-2xl font-sans text-center font-semibold pb-3">
+              Xóa lịch chiếu theo thời gian
+            </h1>
+            <UForm :state="deleteshce" class="space-y-6" @submit="onSubmit">
+              <div class="grid grid-cols-4 gap-2 mt-5">
+                <p class="col-span-1">Bắt đầu</p>
+                <input class="col-span-2" v-model = "deleteshce.start" type="datetime-local">
+              </div>
+              <div class="grid grid-cols-4 gap-2 mt-5">
+                <p class="col-span-1">Kết thúc</p>
+                <input class="col-span-2" v-model = "deleteshce.end" type="datetime-local">
+              </div>
+              <div class="w-full flex justify-center">
+                <UButton type = "submit">Xác nhận</UButton> 
+              </div>
+            </UForm>
+          </div>
+        </div>
+      </UModal>
   </div>
   <v-card flat>
     <v-card-title class="d-flex align-center pe-2">
@@ -146,7 +177,7 @@ scheduleStore.getAllSchedule()
 
 
 const isShowSchedule = ref(false)
-
+const isShowDeleteSchedule = ref(false)
 
 
 const movies = computed(() => {
@@ -173,6 +204,10 @@ const scheduleNew = reactive({
   price:0
 })
 
+const deleteshce  = ref({
+  start:'',
+  end:''
+})
 const search = ref('');
 
   const addSchedule = () => {
@@ -192,15 +227,17 @@ const createSchedule = () => {
   scheduleStore.createSchedule(data)
 }
 
+const onSubmit = () => {
+console.log(deleteshce.value.start)
+}
+
 const deleteSchedule = () => {
-  if(search.value === '') {
-    alert("Chọn lịch chiếu cần xóa")
-  }
+  isShowDeleteSchedule.value = true 
   
 }
 
 const check = () => {
-
+  console.log(deleteshce.value.start)
 }
 
 

@@ -38,13 +38,6 @@ const links = [{
   }, {
     label: 'Quản lí lịch chiếu',
     to: '/cinema/schedule'
-  }, {
-    label: 'Quản lí phòng chiếu',
-    to: '/cinema/room'
-  },
-  {
-    label: 'Quản lí ghế ngồi',
-    to: '/cinema/seat'
   },
   {
     label: 'Quản lí đồ ăn',

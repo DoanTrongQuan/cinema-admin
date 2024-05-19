@@ -306,13 +306,13 @@ const check = () => {
           size="md"
           @click="createMovie"
       />
-      <UButton
+      <!-- <UButton
           type = "submit"
           color="green"
           label="check"
           size="md"
           @click="check"
-      />
+      /> -->
     </UForm>
     <!-- ~/components/settings/DeleteAccountModal.vue -->
   <SettingsDeleteAccountModal v-model="isDeleteAccountModalOpen" />
