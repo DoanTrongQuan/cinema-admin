@@ -8,4 +8,5 @@
     </UDashboardPage>
 </template>
 <script setup>
+
 </script>

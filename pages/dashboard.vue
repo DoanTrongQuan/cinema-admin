@@ -40,8 +40,8 @@ const chartOptions = ref({
 <template>
   <UDashboardPage>
     <UDashboardPanel grow class="overflow-y-auto">
+      <UDashboardNavbar title="Thống kê doanh thu"  class="text-2xl"/>
       <Bar :data="chartData" :options="chartOptions" />
-      
     </UDashboardPanel>
   </UDashboardPage>
 </template>

@@ -1,10 +1,21 @@
 <template>
-    <div class = "flex gap-6 py-4">
-      <button @click = "check">check</button>
-      <input type="file" id="imageInput" accept="image/*">
-      <button @click="addImage()">Thêm Hình Ảnh</button>
+<div class="overflow-y-auto p-4">
+    <div class = "flex flex-col py-3">
+      <div class = "grid grid-cols-4">
+        <button @click = "check">check</button>
+        <input class = "col-span-2" type="file" @change="handleFileChange">
+        <div class = "col-span-2 justify-start">
+          <img v-if="image" class = "max-w-[200px] max-h-[100px]" :src="image" alt="Image preview" />
+      </div>
+        </div>
+      <div class = "item-center py-3 w-[1177px]">
+        <UInput v-model = "blog.name" class = "" placeholder="Tên blog" size = "xl"></UInput>
+      </div>
+      <div class = "item-center py-3 w-[1177px]">
+        <UInput v-model = "blog.description" class = "" placeholder="Mô tả" size = "xl"></UInput>
+      </div>
     </div>
-    <div v-if="editor">
+    <div v-if="editor" class = "nav-button py-3 flex  overflow-x-auto w-[1177px]">
       <button
         @click="editor.chain().focus().toggleBold().run()"
         :disabled="!editor.can().chain().focus().toggleBold().run()"
@@ -34,10 +45,10 @@
         code
       </button>
       <button @click="editor.chain().focus().unsetAllMarks().run()">
-        clear marks
+        marks
       </button>
       <button @click="editor.chain().focus().clearNodes().run()">
-        clear nodes
+        nodes
       </button>
       <button
         @click="editor.chain().focus().setParagraph().run()"
@@ -85,19 +96,19 @@
         @click="editor.chain().focus().toggleBulletList().run()"
         :class="{ 'is-active': editor.isActive('bulletList') }"
       >
-        bullet list
+        bullet 
       </button>
       <button
         @click="editor.chain().focus().toggleOrderedList().run()"
         :class="{ 'is-active': editor.isActive('orderedList') }"
       >
-        ordered list
+        ordered 
       </button>
       <button
         @click="editor.chain().focus().toggleCodeBlock().run()"
         :class="{ 'is-active': editor.isActive('codeBlock') }"
       >
-        code block
+        code 
       </button>
       <button
         @click="editor.chain().focus().toggleBlockquote().run()"
@@ -106,10 +117,10 @@
         blockquote
       </button>
       <button @click="editor.chain().focus().setHorizontalRule().run()">
-        horizontal rule
+        horizontal 
       </button>
       <button @click="editor.chain().focus().setHardBreak().run()">
-        hard break
+        break
       </button>
       <button
         @click="editor.chain().focus().undo().run()"
@@ -124,28 +135,67 @@
         redo
       </button>
     </div>
-
+    <div class = "py-3 grid grid-cols-3 items-center">
+      <div class = "col-span-2">
+        <input type="file" id="imageInput" accept="image/*">
+        <UButton @click = "addImage()" class = "rounded-lg">Thêm Hình Ảnh</UButton>
+      </div>
+      <div class="flex justify-end">
+        <UButton color = "green" class = "col-span-1 mr-5" @click = "createBlog">Thêm Blog</UButton>
+      </div>
+        
+    </div>
     <TiptapEditorContent :editor="editor" />
-  
+</div>
 </template>
 
 <script setup>
 import Image from '@tiptap/extension-image';
+import { useBlogStore } from '~/stores/admin/useBlogStore';
 
+const blogStore = useBlogStore()
+const blog = ref({
+  name:'',
+  description:'',
+})
+
+// Biến này sẽ lưu trữ URL để xem trước hình ảnh
+const image = ref(null);
+
+function handleFileChange(event) {
+  const file = event.target.files[0];
+
+  if (file) {
+    image.value = URL.createObjectURL(file);
+  }
+}
 const editor = useEditor({
   content: "",
   extensions: [
     TiptapStarterKit,
     Image.configure({
-        // Cấu hình thêm nếu cần
+      HTMLAttributes: {
+        class: 'mx-auto',
+      },
       }),
   ],
   editorProps: {
     attributes: {
-      class: 'max-h-[1000px]',
+      class: 'p-5  h-[1000px] w-[1177px] flex flex-col ',
     },
   },
 });
+
+const createBlog = () => {
+  
+  const data = {
+    image: image.value,
+    name:blog.value.name,
+    description: blog.value.description,
+    content:editor.value.getHTML()
+  }
+  blogStore.createBlog(data)
+}
 
 // const addImage = () => {
 //   const url = prompt('URL của hình ảnh:');
@@ -182,5 +232,41 @@ onBeforeUnmount(() => {
 <style scoped>
 button {
   margin-right: 10px;
+}
+.custom-image {
+margin-left:200px !important;
+}
+img {
+  margin: auto !important;
+}
+.nav-button button {
+    height: 30px;
+    width:200px !important;
+    display: flex;
+    
+    align-items: center; /* flex-grow, flex-shrink, flex-basis */
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+    border: 2px solid #1d1d1d;
+    border-radius: 0.4em;
+    text-align: center; /* Đảm bảo văn bản được căn giữa */
+    padding: 3px 15px; /* Điều chỉnh khoảng cách bên trong nút */
+    box-sizing: border-box; /* Đảm bảo kích thước bao gồm padding và border */
+}
+
+.nav-button::-webkit-scrollbar {
+    height: 4px; /* Đặt độ cao của thanh cuộn ngang */
+}
+
+.nav-button::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của track thanh cuộn */
+}
+
+.nav-button::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của thumb thanh cuộn */
+}
+
+.nav-button::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thumb khi hover */
 }
 </style>
