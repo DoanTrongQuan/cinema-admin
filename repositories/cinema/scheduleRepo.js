@@ -21,4 +21,9 @@ export const createSchedule = (data) => {
   return Cinema.axiosAuth.post(url,data)
 }
 
+export const deleteScheduleByAdmin = (data) => {
+  const url = prefix + 'schedule/delete-schedule'
+  return Cinema.axiosAuth.put(url,data)
+}
+
 

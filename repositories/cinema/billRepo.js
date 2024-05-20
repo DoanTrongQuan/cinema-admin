@@ -6,4 +6,9 @@ export const getAllBill = () => {
   return Cinema.axiosAuth.get(url)
 }
 
+export const deleteBillByAdmin = (data) => {
+  const url = prefix + 'bill/delete-bill'
+  return Cinema.axiosAuth.put(url,data)
+}
+
 

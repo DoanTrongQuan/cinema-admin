@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getAllSchedule,getAllMovieSchedule,getAllRoomSchedule,createSchedule} from '~/repositories/cinema/scheduleRepo';
+import { getAllSchedule,getAllMovieSchedule,getAllRoomSchedule,createSchedule, deleteScheduleByAdmin} from '~/repositories/cinema/scheduleRepo';
 
 export const useScheduleStore = defineStore({
   id: "scheduleStore",
@@ -38,10 +38,19 @@ export const useScheduleStore = defineStore({
         alert(error.response.data)
       }
     },
+
     async createSchedule(data){
       try {
         const res = await createSchedule(data)
       } catch (error) {  
+        alert(error.response.data)
+      }
+    },
+    async deleteScheduleByAdmin(data){
+      try {
+        const res = await deleteScheduleByAdmin(data)
+        alert("Xóa lịch chiếu thành công")
+      } catch (error) {
         alert(error.response.data)
       }
     },

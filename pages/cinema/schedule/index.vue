@@ -164,7 +164,7 @@
 <script setup>
 import { useScheduleStore } from '~/stores/admin/useScheduleStore';
 import EditSchedule from '~/components/schedule/EditSchedule.vue'
-import { format,parseISO } from 'date-fns'
+
 
 
 const scheduleStore = useScheduleStore()
@@ -228,7 +228,8 @@ const createSchedule = () => {
 }
 
 const onSubmit = () => {
-console.log(deleteshce.value.start)
+  console.log(deleteshce.value.start)
+       scheduleStore.deleteScheduleByAdmin(deleteshce.value)
 }
 
 const deleteSchedule = () => {

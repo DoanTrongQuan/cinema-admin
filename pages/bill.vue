@@ -26,7 +26,9 @@
               </div>
               <div class="w-full flex justify-center">
                 <UButton type = "submit">Xác nhận</UButton> 
+                <button @click = "check">Check</button>
               </div>
+              
             </UForm>
           </div>
         </div>
@@ -80,6 +82,7 @@
     </template>
   </v-data-table>
 </v-card>
+
 </div>
   
 </UDashboardPanel>
@@ -88,7 +91,7 @@
 
 <script setup>
 import { useBillStore } from "~/stores/admin/useBillStore";
-
+import { format,parseISO } from 'date-fns'
 
 const billStore = useBillStore()
 
@@ -97,6 +100,7 @@ const bills = computed(() => {
 })
 const search = ref('')
 const isShowDeleteBill = ref(false)
+
 const deleteBill = ref({
   start:'',
   end:''
@@ -119,8 +123,18 @@ const headersBill = ref([
   { title: "Trạng thái", key: "status", align: "center" },
 ]);
 
-const removeAll  = () =>{
+const check = () => {
+
+  console.log(deleteBill.value.start)
+  console.log(deleteBill.value.end)
+  }
+  const removeAll  = () =>{
   isShowDeleteBill.value = true;
+}
+
+const onSubmit = () => {
+    
+
 }
 </script> 
 

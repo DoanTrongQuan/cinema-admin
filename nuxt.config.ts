@@ -2,13 +2,16 @@
 export default defineNuxtConfig({
   extends: [process.env.NUXT_UI_PRO_PATH || '@nuxt/ui-pro'],
   modules: [
-    '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/fonts',
     '@vueuse/nuxt',
     "vuetify-nuxt-module",
     '@pinia/nuxt',
+    "nuxt-tiptap-editor"
   ],
+  tiptap: {
+    prefix: "Tiptap", 
+  },
   ui: {
     icons: ['heroicons', 'simple-icons'],
     safelistColors: ['primary', 'red', 'orange', 'green']
@@ -18,14 +21,6 @@ export default defineNuxtConfig({
   },
   typescript: {
     strict: false
-  },
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
   },
   runtimeConfig: {
     app: {
