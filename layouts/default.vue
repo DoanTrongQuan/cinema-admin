@@ -47,9 +47,15 @@ const links = [{
 },
 {
   id: 'content',
-  label: 'Quản lí nội dung',
+  label: 'Quản lý nội dung',
   icon: 'i-heroicons-inbox',
   to: '/content',
+},
+{
+  id: 'blog',
+  label: 'Quản lí blog',
+  icon: 'i-heroicons-inbox',
+  to: '/blog',
 }
 ]
 

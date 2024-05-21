@@ -2,12 +2,12 @@
 <div class="overflow-y-auto p-4">
     <div class = "flex flex-col py-3">
       <div class = "grid grid-cols-4">
-        <button @click = "check">check</button>
-        <input class = "col-span-2" type="file" @change="handleFileChange">
-        <div class = "col-span-2 justify-start">
-          <img v-if="image" class = "max-w-[200px] max-h-[100px]" :src="image" alt="Image preview" />
+          <!-- <button @click = "check">check</button> -->
+          <input class = "col-span-2" type="file" @change="handleFileChange">
+          <div class = "col-span-2">
+            <img  v-if="image" class = "max-w-[200px] max-h-[100px]" :src="image" alt="Image preview" style = "margin: 0 !important;"/>
+          </div>
       </div>
-        </div>
       <div class = "item-center py-3 w-[1177px]">
         <UInput v-model = "blog.name" class = "" placeholder="Tên blog" size = "xl"></UInput>
       </div>
@@ -162,11 +162,12 @@ const blog = ref({
 // Biến này sẽ lưu trữ URL để xem trước hình ảnh
 const image = ref(null);
 
-function handleFileChange(event) {
+function handleFileChange(event) { 
   const file = event.target.files[0];
 
   if (file) {
-    image.value = URL.createObjectURL(file);
+    // image.value = URL.createObjectURL(file);
+    image.value = "/img/" +file.name;
   }
 }
 const editor = useEditor({
@@ -215,15 +216,17 @@ const addImage = () => {
 
   reader.onload = (e) => {
     // Tạo URL tạm thời từ file
-    const src = URL.createObjectURL(file);
+    // const src = URL.createObjectURL(file);
+    const src = "/img/" + file.name;
     // Sử dụng lệnh setImage của Tiptap để thêm hình ảnh vào trình soạn thảo
     editor.value.commands.setImage({ src });
   };
 
   reader.readAsDataURL(file);
 };
+
 const check = () => {
-  console.log(editor.value.getHTML());
+  console.log(image.value);
 }
 onBeforeUnmount(() => {
  unref(editor).destroy();

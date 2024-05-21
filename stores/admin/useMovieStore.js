@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getAllMovie,createMovie,getMovieType,getAllCinemaName,getMovie,updateMovie } from '~/repositories/cinema/movieRepo';
+import { getAllMovie,createMovie,getMovieType,getAllCinemaName,getMovie,updateMovie,stopShowMovie } from '~/repositories/cinema/movieRepo';
 
 export const useMovieStore = defineStore({
 
@@ -64,6 +64,14 @@ async getAllCinemaName(){
   try {
     const res = await getAllCinemaName()
     this.cinemaName = res.data;
+  } catch (error) { 
+    alert(error.response.data)
+  }
+},
+async stopShowMovie(data){
+  try {
+    const res = await stopShowMovie(data)
+    alert(res.data)
   } catch (error) { 
     alert(error.response.data)
   }

@@ -17,19 +17,19 @@ const movie = reactive({
   description: '',
   director: '',
   image: '',
-  herolmage: '',
+  heroImage: '',
+  imageSuggest:'',
   language:'' ,
   name:'',
   trailer:'',
   slug:'',
   type:[],
   actor:[],
-  codeCinema:'',
-  isUpcoming:''
-
+  codeCinema:'Space Mỹ Đình',
+  isUpcoming:'Phim sắp chiếu'
 })
 
-const showTime = ['Phim sắp chiếu','Phim đang chiếu']
+const showTime = ['Phim sắp chiếu','Phim đang chiếu', 'Ngừng chiếu']
 
 const showTimeSelected = ref(showTime[0])
 
@@ -44,46 +44,66 @@ const movieType = ref([
   { name: 'Lãng mạn'},
   { name: 'Kinh dị'},
   { name: 'Tình cảm' },
-  { name: 'Tình dục'},
   { name: 'Hài hước' },
   { name: 'Dật gân'},
   { name: 'Hành động'}
 ])
 
-const cinema = ['Cine Mỹ đình', 'Cine đan phượng','Cine giải phóng','Cine thanh xuân','Cine nghĩa lộ','Cine việt trì']
+const cinema = ['Space Mỹ Đình', 'Space Thanh Xuân',
+'Space Đan Phượng','Space Giải Phóng','Space Quang Trung',
+'Space Văn Khiêm','Space Bắc Giang','Space Biên Hòa','Space Long Khánh',
+'Space Nha Trang','Space Thái Nguyên','Space Thanh Hóa','Space Phú Mỹ',
+'Space Hồ Tràm','Space Tân Uyên','Space Lào cai','Space Phú quốc',
+'Space Quang Khải']
 const openAddActor = () => {
   eventBus.emit('show_add_actor',true)
 }
+
+function handleFileUpload(event, key) {
+  // Kiểm tra xem event và files có tồn tại không
+  if (event && event.target && event.target.files && event.target.files.length > 0) {
+    const file = event.target.files[0];
+    if (file) {
+      movie[key] = "/img/" + file.name;
+
+    }
+  } else {
+    console.error('No files selected or event object is missing');
+  }
+}
+
+
 const onSubmit = async (event) => {
     // console.log(event.data)
-    const data = {
-      movieDuration: event.data.movieDuration,
-      endTime: event.data.endTime,
-      premiereDate: event.data.premiereDate,
-      description: event.data.description,
-      director: event.data.director,
-      image: event.data.image.name,
-      herolmage: event.data.herolmage.name,
-      language:event.data.language ,
-      name:event.data.name,
-      trailer:event.data.trailer.name,
-      slug:event.data.slug,
-      type:event.data.type,
-      actor:event.data.actor,
-      codeCinema:event.data.codeCinema,
-      isUpcoming:event.data.isUpcoming
-    }
+    // const data = {
+    //   movieDuration: event.data.movieDuration,
+    //   endTime: event.data.endTime,
+    //   premiereDate: event.data.premiereDate,
+    //   description: event.data.description,
+    //   director: event.data.director,
+    //   image: movie.image,
+    //   heroImage: movie.heroImage,
+    //   imageSuggest: movie.imageSuggest,
+    //   language:event.data.language ,
+    //   name:event.data.name,
+    //   trailer:event.data.trailer.name,
+    //   slug:event.data.slug,
+    //   type:event.data.type,
+    //   actor:event.data.actor,
+    //   codeCinema:event.data.codeCinema,
+    //   isUpcoming:event.data.isUpcoming
+    // }
 
     try {
-      await movieStore.createMovie(data)
+      await movieStore.createMovie(movie)
       toast.add({ title: 'Thêm phim thành công' })
     } catch (error) {
     }
 
 }
-
 const check = () => {
-  console.log(typeof movie.actor)
+  // console.log(movie.image + ' ///' + movie.heroImage + ' ///' + movie.imageSuggest)
+  console.log(movie.image)
 }
 </script>
 
@@ -93,15 +113,18 @@ const check = () => {
   </div>
   <UDashboardPanelContent class="pb-24">
     <h1 class="text-center font-medium font-sans text-3xl">Thêm mới phim</h1>
+    <button @click = "check">Check</button>
     <UForm
       :state="movie"
       @submit="onSubmit"
     >
       <UDashboardSection>
         
+        
         <div class="grid grid-cols-4 gap-2">
           <p class="col-span-1">Tên phim</p>
           <UInput
+            placeholder="Tên phim"
             class ="col-span-2 w-full"
             v-model="movie.name"
             autocomplete="off"
@@ -112,8 +135,9 @@ const check = () => {
         <div
           class="grid grid-cols-4 gap-2"
         >
-          <p class = "col-span-1">Thời lượng</p>
+          <p class = "col-span-1">Thời lượng (Phút)</p>
           <UInput
+          placeholder="Thời lượng"
             class ="col-span-2"
             v-model="movie.movieDuration"
             autocomplete="off"
@@ -124,6 +148,7 @@ const check = () => {
         <div class="grid grid-cols-4 gap-2">
           <p class="col-span-1">Đường dẫn</p>
           <UInput
+          placeholder="Đường dẫn"
             class ="col-span-2"
             v-model="movie.slug"
             autocomplete="off"
@@ -164,6 +189,7 @@ const check = () => {
         >
           <p class="col-span-1">Đạo diễn</p>
           <UInput
+            placeholder="Đạo diễn"
             class ="col-span-2"
             v-model="movie.director"
             autocomplete="off"
@@ -245,23 +271,23 @@ const check = () => {
           </div>
         </div>
 
-        <div
-          class="grid grid-cols-4 gap-2"
-        >
+        <div class="grid grid-cols-4 gap-2">
           <p class="col-span-1">Hình ảnh</p>
-          <v-file-input class="col-span-2" density = "compact" v-model="movie.image" label="File input" variant="outlined"></v-file-input>
+          <input class="col-span-2" @change="handleFileUpload($event,'image')" placeholder="Hình ảnh" type="file">
         </div>
-        <div
-          class="grid grid-cols-4 gap-2"
-        >
+        <div class="grid grid-cols-4 gap-2">
           <p class="col-span-1">Hình ảnh giới thiệu</p>
-          <v-file-input density ="compact" v-model="movie.herolmage" class="col-span-2" label="File input" variant="outlined"></v-file-input>
+          <input class="col-span-2" @change="handleFileUpload($event,'heroImage')" placeholder="Hình ảnh giới thiệu" type="file">
+        </div>
+        <div class="grid grid-cols-4 gap-2">
+          <p class="col-span-1">Hình ảnh gợi ý</p>
+          <input class="col-span-2" @change="handleFileUpload($event,'imageSuggest')" placeholder="Hình ảnh gợi ý" type="file">
         </div>
         <div
           class="grid grid-cols-4 gap-2"
         >
         <p class="col-span-1">Giới thiệu phim</p>
-        <v-file-input density ="compact" v-model="movie.trailer" class="col-span-2" label="File input" variant="outlined"></v-file-input>
+        <UInput v-model="movie.trailer" class="col-span-2" placeholder="Trailler"></UInput>
         </div>
         <div
           class="grid grid-cols-4 gap-2"
@@ -269,6 +295,7 @@ const check = () => {
         <p class="col-span-1">Quốc gia</p>
           <UInput
             class ="col-span-2"
+            placeholder="Quốc gia"
             v-model="movie.language"
             autocomplete="off"
             size="md"
@@ -283,6 +310,7 @@ const check = () => {
             class = "col-span-2"
             v-model="movie.description"
             :rows="5"
+            placeholder="Mô tả"
             autoresize
             size="md"
           />

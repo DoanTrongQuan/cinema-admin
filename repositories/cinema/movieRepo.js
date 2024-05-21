@@ -30,3 +30,8 @@ export const getAllCinemaName = () => {
   return Cinema.axiosClient.get(url)
 }
 
+export const stopShowMovie = (slug) => {
+  const url = prefix + 'movie/stop-show-movie?slug='
+  return Cinema.axiosAuth.put(url + slug)
+}
+
