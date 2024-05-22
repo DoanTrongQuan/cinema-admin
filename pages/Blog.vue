@@ -3,7 +3,7 @@
     <UDashboardPage>
       <UDashboardPanel grow>
         <UDashboardNavbar title="Quản lí Blog"  class="text-2xl"/>
-          <TiptapEditor/>
+          <TiptapEditorBlog/>
       </UDashboardPanel>
     </UDashboardPage>
 </template>

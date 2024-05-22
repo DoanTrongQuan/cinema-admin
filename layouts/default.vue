@@ -47,9 +47,9 @@ const links = [{
 },
 {
   id: 'content',
-  label: 'Quản lý nội dung',
+  label: 'Quản lý Sự kiện, Khuyến mãi',
   icon: 'i-heroicons-inbox',
-  to: '/content',
+  to: '/event',
 },
 {
   id: 'blog',
