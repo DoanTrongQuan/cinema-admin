@@ -1,12 +1,16 @@
 <script setup>
-
+import eventBus from '~/utils/eventBus'
 import { useLogin } from '~/composables/authentication/useLogin'
 const {  onSubmit, state, schema } = useLogin();
 const checkbox = ref(true);
 
+const OpenForgotPassword = () => {
+  eventBus.emit('show_forgot_password',true)
+}
 </script>
 
 <template>
+
     <div class = "flex flex-col py-2 px-2">
       <UForm  :state="state" class="w-full"   @submit="onSubmit">
           <div>
@@ -19,9 +23,6 @@ const checkbox = ref(true);
           <div>
             <div class="flex items-center justify-between">
               <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-              <div class="text-sm">
-                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Quên mật khẩu?</a>
-              </div>
             </div>
             <div class="mt-2">
               <UInput v-model="state.password" size="lg" id="password" name="password" type="password" autocomplete="current-password" required="" class="block  w-full rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -38,11 +39,10 @@ const checkbox = ref(true);
                 <v-checkbox v-model="checkbox"  color="primary" hide-details>
                     <template v-slot:label class="text-body-1">Remeber this Device</template>
                 </v-checkbox>
-                <div class="ml-sm-auto">
-                    <NuxtLink to="/"
-                        class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Forgot
-                        Password ?</NuxtLink>
-                </div>
+                <a @click.prevent = "OpenForgotPassword" class="ml-sm-auto text-[green] font-bold">
+      
+                    Quên mật khẩu
+                </a>
             </div>
         </div>
     </div>

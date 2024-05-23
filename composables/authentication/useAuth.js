@@ -7,7 +7,7 @@ export const useAuth = () => {
   const { handleSaveCookieAuth, refreshToken } = useToken();
   const { handleSaveCookieProfile } =  useProfile();
   const router  = useRouter()
-
+  const toast  = useToast()
   function logout() {
     //xóa lại tất cả giá trị trong cookie về rỗng
     handleSaveCookieAuth({})
@@ -30,6 +30,7 @@ export const useAuth = () => {
         handleSaveCookieProfile(response.data)
         return response
       } catch (error) {
+        toast.add({ title: 'Thông tin không chính xác' })
         throw error;
       }
       

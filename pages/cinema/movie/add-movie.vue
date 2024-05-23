@@ -121,7 +121,7 @@ const check = () => {
       <UDashboardSection>
         
         
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-2">
           <p class="col-span-1">Tên phim</p>
           <UInput
             placeholder="Tên phim"
@@ -133,7 +133,7 @@ const check = () => {
         </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-3 items-center"
         >
           <p class = "col-span-1">Thời lượng (Phút)</p>
           <UInput
@@ -145,7 +145,7 @@ const check = () => {
           />
       </div>
 
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-3 items-center">
           <p class="col-span-1">Đường dẫn</p>
           <UInput
           placeholder="Đường dẫn"
@@ -158,9 +158,9 @@ const check = () => {
           </UInput>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 items-center mt-3"
           >
-          <p class="col-span-1">Ngày công chiếu"</p>
+          <p class="col-span-1 items-center">Ngày công chiếu"</p>
           <div class="col-span-2">
             <UInput
             id="password"
@@ -171,7 +171,7 @@ const check = () => {
             />
             </div>
           </div>
-            <div class="grid grid-cols-4 gap-2">
+            <div class="grid grid-cols-4 gap-2 items-center">
               <p class = "col-span-1"> ngày kết thúc</p>
                 <UInput
                 id="password_new"
@@ -185,7 +185,7 @@ const check = () => {
 
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 items-center"
         >
           <p class="col-span-1">Đạo diễn</p>
           <UInput
@@ -196,7 +196,7 @@ const check = () => {
             size="md"
           />
         </div>
-        <div class="grid grid-cols-4 gap-5">
+        <div class="grid grid-cols-4 gap-5 items-center">
         <p class = "col-span-1">Diễn viên</p>
         <div class="col-span-2">
                 <v-autocomplete
@@ -240,7 +240,7 @@ const check = () => {
 
         </div>
 
-        <div class = "grid grid-cols-4 gap-2">
+        <div class = "grid grid-cols-4 gap-2 items-center mt-3">
           <p class="col-span-1">Thể loại</p>
           <div class="col-span-2">
             <v-autocomplete
@@ -271,7 +271,7 @@ const check = () => {
           </div>
         </div>
 
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-3 items-center">
           <p class="col-span-1">Hình ảnh</p>
           <input class="col-span-2" @change="handleFileUpload($event,'image')" placeholder="Hình ảnh" type="file">
         </div>
@@ -284,7 +284,7 @@ const check = () => {
           <input class="col-span-2" @change="handleFileUpload($event,'imageSuggest')" placeholder="Hình ảnh gợi ý" type="file">
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-3 items-center"
         >
         <p class="col-span-1">Giới thiệu phim</p>
         <UInput v-model="movie.trailer" class="col-span-2" placeholder="Trailler"></UInput>
@@ -303,7 +303,7 @@ const check = () => {
       </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-3 items-center"
         >
           <p class="col-span-1">Mô tả</p>
           <UTextarea
@@ -317,7 +317,7 @@ const check = () => {
         </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-3 items-center"
         >
         <p class="col-span-1">Thời gian chiếu</p>
          <UInputMenu class="col-span-2" v-model="movie.isUpcoming" :options="showTime" />

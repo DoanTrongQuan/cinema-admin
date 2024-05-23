@@ -33,14 +33,17 @@ const links = [{
 }, 
  {
     label: 'Quản lí phim',
+    icon: 'i-heroicons-movies',
     to: '/cinema/movie',
     exact: true
   }, {
     label: 'Quản lí lịch chiếu',
+    icon: 'i-heroicons-movies',
     to: '/cinema/schedule'
   },
   {
     label: 'Quản lí đồ ăn',
+    icon: 'i-heroicons-movies',
     to: '/cinema/food'
   },
 {
@@ -76,7 +79,7 @@ const items = [
 
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer expand-on-hover floating width="300"  v-model="drawer">
+    <v-navigation-drawer expand-on-hover floating width="320"  v-model="drawer">
       <div class = "py-5 px-2">
         <div class = "max-w-[200px] max-h-[100px] pb-3">
           <img src = "/img/logo_cinema.png">

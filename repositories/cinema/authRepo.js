@@ -6,7 +6,10 @@ export const login = data => {
   return Cinema.axiosClient.post(url, data)
 }
 
-
+export const resetPassword = data => {
+  const url = prefix + 'auth/forgot-password'
+  return Cinema.axiosClient.put(url, data)
+}
 
   export const confirmAuthor = data => {
     const url = prefix + 'user/confirm-author'

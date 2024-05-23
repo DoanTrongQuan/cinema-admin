@@ -6,7 +6,7 @@ export const useLogin = () => {
   const route = useRoute()
   const authAsync = useAuth();
   const { role } = useProfile();
-
+  const toast  = useToast()
 
   
   const state = reactive({
@@ -30,14 +30,12 @@ export const useLogin = () => {
       if(role.value === '[ROLE_ADMIN]'){
         router.replace('/')
       }else{
-        alert('Forbidden')
+        router.replace('/error')
       }
       // let to = route.query.redirect ||'/home';   
-      
-      
-
+    
     } catch (error) {
-      // alert(error.response.data)
+      toast.add({ title: error.response.data })
     }
   }
 
