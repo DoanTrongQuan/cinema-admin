@@ -204,32 +204,41 @@
   const image = ref(null);
   const ranks = ['Tân binh', 'Sơ cấp', 'Siêu cấp']
 
-  async function handleFileChange(event) {
-  const file = event.target.files[0];
-  // console.log(file);
-  if (file) {
-    console.log(file)
-    const form = new FormData();
-    form.append("fileToUpload", file); // Thêm toàn bộ đối tượng file
-    form.append("submit", "Upload Image");
+//   async function handleFileChange(event) {
+//   const file = event.target.files[0];
+//   // console.log(file);
+//   if (file) {
+//     console.log(file)
+//     const form = new FormData();
+//     form.append("fileToUpload", file); // Thêm toàn bộ đối tượng file
+//     form.append("submit", "Upload Image");
 
-    try {
-      const res = await axios({
-        method: 'post',
-        url: 'https://haris-storage.000webhostapp.com/upload.php',
-        data: form,
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
-      console.log(res);
-      // image.value = res.data.url;
-    } catch (error) {
-      console.error("Error uploading file: ", error);
-      // Xử lý lỗi nếu có
-    }
+//     try {
+//       const res = await axios({
+//         method: 'post',
+//         url: 'https://haris-storage.000webhostapp.com/upload.php',
+//         data: form,
+//         headers: {
+//           "Content-Type": "multipart/form-data"
+//         }
+//       });
+//       console.log(res);
+//       // image.value = res.data.url;
+//     } catch (error) {
+//       console.error("Error uploading file: ", error);
+//       // Xử lý lỗi nếu có
+//     }
+//   }
+// }
+function handleFileChange(event) { 
+  const file = event.target.files[0];
+
+  if (file) {
+    // image.value = URL.createObjectURL(file);
+    image.value = "/img/" +file.name;
   }
 }
+
   const editor = useEditor({
     content: "",
     extensions: [

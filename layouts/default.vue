@@ -1,7 +1,11 @@
-<script setup lang="ts">
+<script setup >
+import { useAuth } from '~/composables/authentication/useAuth';
+import { useProfile } from '~/composables/useProfile'
 const route = useRoute()
 const appConfig = useAppConfig()
-const { isHelpSlideoverOpen } = useDashboard()
+const router = useRouter()
+const { logout } = useAuth()
+const { userName } = useProfile()
 
 const links = [{
   id: 'home',
@@ -26,12 +30,8 @@ const links = [{
     text: 'Users',
     shortcuts: ['G', 'U']
   }
-}, {
-  id: 'cinema',
-  label: 'Quản lí rạp chiếu phim',
-  to: '/cinema',
-  icon: 'i-heroicons-cog-8-tooth',
-  children: [{
+}, 
+ {
     label: 'Quản lí phim',
     to: '/cinema/movie',
     exact: true
@@ -43,8 +43,6 @@ const links = [{
     label: 'Quản lí đồ ăn',
     to: '/cinema/food'
   },
-],
-},
 {
   id: 'content',
   label: 'Quản lý Sự kiện, Khuyến mãi',
@@ -59,89 +57,54 @@ const links = [{
 }
 ]
 
-const footerLinks = [{
-  label: 'Invite people',
-  icon: 'i-heroicons-plus',
-  to: '/settings/members'
-}, {
-  label: 'Help & Support',
-  icon: 'i-heroicons-question-mark-circle',
-  click: () => isHelpSlideoverOpen.value = true
-}]
+const drawer = ref(null)
 
-const groups = [{
-  key: 'links',
-  label: 'Go to',
-  commands: links.map(link => ({ ...link, shortcuts: link.tooltip?.shortcuts }))
-}, {
-  key: 'code',
-  label: 'Code',
-  commands: [{
-    id: 'source',
-    label: 'View page source',
-    icon: 'i-simple-icons-github',
+const items = [
+  [{
+    label: 'Thông tin cá nhân',
     click: () => {
-      window.open(`https://github.com/nuxt-ui-pro/dashboard/blob/main/pages${route.path === '/' ? '/index' : route.path}.vue`, '_blank')
+      // router.replace('/tai-khoan')
+    }
+  }], [{
+    label: 'Đăng xuất',
+    click: () => {
+      logout()
     }
   }]
-}]
-
-const defaultColors = ref(['green', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet'].map(color => ({ label: color, chip: color, click: () => appConfig.ui.primary = color })))
-const colors = computed(() => defaultColors.value.map(color => ({ ...color, active: appConfig.ui.primary === color.label })))
+]
 </script>
 
 <template>
-  <UDashboardLayout>
-    <UDashboardPanel
-      :width="250"
-      :resizable="{ min: 200, max: 300 }"
-      collapsible
-    >
-      <!-- <UDashboardNavbar
-        class="!border-transparent"
-        :ui="{ left: 'flex-1' }"
-      >
-        <template #left>
-          <TeamsDropdown />
-        </template>
-      </UDashboardNavbar> -->
+  <v-app id="inspire">
+    <v-navigation-drawer expand-on-hover floating width="300"  v-model="drawer">
+      <div class = "py-5 px-2">
+        <div class = "max-w-[200px] max-h-[100px] pb-3">
+          <img src = "/img/logo_cinema.png">
+        </div>
+        <UVerticalNavigation :links="links" :ui = "{padding:'py-3 px-3', size:'text-lg'}">
+          <template #default="{ link }">
+            <span class="group-hover:text-primary relative">{{ link.label }}</span>
+          </template>
+        </UVerticalNavigation>
+      </div>
 
-      <UDashboardSidebar>
-        <template #header>
-          <UDashboardSearchButton />
-        </template>
+    </v-navigation-drawer>
 
-        <UDashboardSidebarLinks :links="links" />
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title>Quản lý rạp chiếu phim</v-app-bar-title>
+      <UDropdown
+              :items="items"
+              mode="hover"
+              :popper="{ placement: 'bottom-start' }"
+            >
+              <p class="mr-3 mb-1 font-bold ">{{ userName }}</p>
+            </UDropdown>
+      
+    </v-app-bar>
 
-        <UDivider />
-
-        <!-- <UDashboardSidebarLinks
-          :links="[{ label: 'Colors', draggable: true, children: colors }]"
-          @update:links="colors => defaultColors = colors"
-        /> -->
-
-        <div class="flex-1" />
-
-        <!-- <UDashboardSidebarLinks :links="footerLinks" /> -->
-
-        <UDivider class="sticky bottom-0" />
-
-        <template #footer>
-          <!-- ~/components/UserDropdown.vue -->
-          <UserDropdown />
-        </template>
-      </UDashboardSidebar>
-    </UDashboardPanel>
-
-    <slot />
-
-    <!-- ~/components/HelpSlideover.vue -->
-    <HelpSlideover />
-    <!-- ~/components/NotificationsSlideover.vue -->
-    <NotificationsSlideover />
-
-    <ClientOnly>
-      <LazyUDashboardSearch :groups="groups" />
-    </ClientOnly>
-  </UDashboardLayout>
+    <v-main>
+      <slot/>
+    </v-main>
+  </v-app>
 </template>

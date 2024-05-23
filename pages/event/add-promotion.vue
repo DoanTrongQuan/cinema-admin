@@ -2,7 +2,7 @@
 
   <UDashboardPage>
     <UDashboardPanel grow>
-      <UDashboardNavbar title="Quản lí Blog"  class="text-2xl"/>
+      <UDashboardNavbar title="Quản lí Sự kiện, khuyến mãi"  class="text-2xl"/>
         <TiptapEditorEvents/>
     </UDashboardPanel>
   </UDashboardPage>

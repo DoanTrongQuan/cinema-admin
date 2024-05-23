@@ -28,7 +28,7 @@ export const useLogin = () => {
       const response = await authAsync.login(event.data);
 
       if(role.value === '[ROLE_ADMIN]'){
-        router.replace('/dashboard')
+        router.replace('/')
       }else{
         alert('Forbidden')
       }

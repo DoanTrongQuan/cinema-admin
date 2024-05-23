@@ -19,9 +19,6 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true
   },
-  typescript: {
-    strict: false
-  },
   runtimeConfig: {
     app: {
       api: {
