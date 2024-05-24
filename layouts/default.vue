@@ -19,7 +19,7 @@ const links = [{
 }, {
   id: 'inbox',
   label: 'Quản lí hóa đơn',
-  icon: 'i-heroicons-inbox',
+  icon: 'i-heroicons-shopping-cart-20-solid',
   to: '/bill',
 }, {
   id: 'users',
@@ -33,23 +33,23 @@ const links = [{
 }, 
  {
     label: 'Quản lí phim',
-    icon: 'i-heroicons-movies',
+    icon: 'i-heroicons-play-circle-16-solid',
     to: '/cinema/movie',
     exact: true
   }, {
     label: 'Quản lí lịch chiếu',
-    icon: 'i-heroicons-movies',
+    icon: 'i-heroicons-calendar-days-20-solid',
     to: '/cinema/schedule'
   },
   {
     label: 'Quản lí đồ ăn',
-    icon: 'i-heroicons-movies',
+    icon: 'i-heroicons-gift-top-20-solid',
     to: '/cinema/food'
   },
 {
   id: 'content',
   label: 'Quản lý Sự kiện, Khuyến mãi',
-  icon: 'i-heroicons-inbox',
+  icon: 'i-heroicons-gift-solid',
   to: '/event',
 },
 {
@@ -107,7 +107,10 @@ const items = [
     </v-app-bar>
 
     <v-main>
-      <slot/>
+      <div class = "px-4">
+        <slot/>
+      </div>
+      
     </v-main>
   </v-app>
 </template>

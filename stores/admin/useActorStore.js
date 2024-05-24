@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { createActor,getAllActor } from '~/repositories/cinema/actorRepo';
-
+import { createToast } from "~/utils/toast";
 
 export const useActorStore = defineStore({
   id: "actorStore",
@@ -12,9 +12,10 @@ export const useActorStore = defineStore({
     async createActor(data){
         try {
           const res = await createActor(data)
+          createToast({message:'Tạo mới diễn viên thành công',time:3000, title: 'Thành công'})
         } catch (error) {  
-          alert(error.response.data);
-          throw error
+          createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
+
         }
     },
 

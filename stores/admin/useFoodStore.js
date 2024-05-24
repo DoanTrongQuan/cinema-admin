@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { createFood, getAllFood,getFoodByAdmin,updateFood } from '~/repositories/cinema/foodRepo'
-
+import { createToast } from "~/utils/toast";
 export const useFoodStore = defineStore({
     id: "foodStore",
     state: () => ({

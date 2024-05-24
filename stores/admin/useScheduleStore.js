@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getAllSchedule,getAllMovieSchedule,getAllRoomSchedule,createSchedule, deleteScheduleByAdmin} from '~/repositories/cinema/scheduleRepo';
-
+import { createToast } from "~/utils/toast";
 export const useScheduleStore = defineStore({
   id: "scheduleStore",
   state: () => ({
@@ -42,16 +42,17 @@ export const useScheduleStore = defineStore({
     async createSchedule(data){
       try {
         const res = await createSchedule(data)
+        createToast({message:'Tạo mới lịch chiếu thành công',time:3000, title: 'Thành công'})
       } catch (error) {  
-        alert(error.response.data)
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }
     },
     async deleteScheduleByAdmin(data){
       try {
         const res = await deleteScheduleByAdmin(data)
-        alert("Xóa lịch chiếu thành công")
+        createToast({message:'Xóa lịch chiếu thành công',time:3000, title: 'Thành công'})
       } catch (error) {
-        alert(error.response.data)
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }
     },
 

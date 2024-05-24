@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {getRevenueCinema } from '~/repositories/cinema/dashboardRepo';
-
+import { createToast } from "~/utils/toast";
 
 export const useDashboardStore = defineStore({
   id: "dashboardStore",

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getAllMovie,createMovie,getMovieType,getAllCinemaName,getMovie,updateMovie,stopShowMovie } from '~/repositories/cinema/movieRepo';
-
+import { createToast } from "~/utils/toast";
 export const useMovieStore = defineStore({
 
 
@@ -26,20 +26,18 @@ export const useMovieStore = defineStore({
     async createMovie(data){
       try {
         const res = await createMovie(data)
-        toast.add({ title: 'Thêm Phim thành công' })
+        createToast({message:'Tạo mới phim thành công',time:3000, title: 'Thành công'})
       } catch (error) { 
-        console.log(error) 
-        alert(error.response.data)
-        throw error;
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }
     },
     async updateMovie(data){
       try {
         const res = await updateMovie(data)
         this.movie = res.data;
+        createToast({message:'Cập nhật phim thành công',time:3000, title: 'Thành công'})
       } catch (error) { 
-        console.log(error) 
-        alert(error.response.data)
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }
     },
   async getMovie(data){

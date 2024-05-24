@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { createBlog } from '~/repositories/cinema/blogRepo';
-
+import { createToast } from "~/utils/toast";
 export const useBlogStore = defineStore({
   id: "blogStore",
   state: () => ({
@@ -11,10 +11,9 @@ export const useBlogStore = defineStore({
     async createBlog(data){
         try {
           const res = await createBlog(data)
-          alert(res.data)
+          createToast({message:'Tạo mới blog thành cồng',time:3000, title: 'Thành công'})
         } catch (error) {  
-          console.log(error.response.data);
-          throw error;
+          createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
         }
     },
 

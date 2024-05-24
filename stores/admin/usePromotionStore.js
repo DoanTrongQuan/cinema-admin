@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { getAllPromotion,createPromotion } from '~/repositories/cinema/promotionRepo';
+import { createToast } from "~/utils/toast";
 
 export const usePromotionStore = defineStore({
   id: "promotionStore",
@@ -22,10 +23,9 @@ export const usePromotionStore = defineStore({
     async createPromotion(data){
       try {
         const res = await createPromotion(data);
-        alert(res.data)
+        createToast({message:'Tạo mới sự kiện thành công',time:3000, title: 'Thành công'})
       } catch (error) {  
-        alert(error.response.data)
-        throw error;
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }
   },
 

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { getAllBill } from '~/repositories/cinema/billRepo';
-
+import { createToast } from "~/utils/toast";
 export const useBillStore = defineStore({
   id: "billStore",
   state: () => ({

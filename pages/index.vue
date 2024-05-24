@@ -35,10 +35,11 @@ const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
 });
+
 </script>
 
 <template>
-  <div >
+  <div class = "max-w-[1000px] max-h-[800px]">
     <Bar :data="chartData" :options="chartOptions" />
   </div>
 </template>
