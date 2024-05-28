@@ -62,13 +62,7 @@ const links = [{
 
 const drawer = ref(null)
 
-const items = [
-  [{
-    label: 'Thông tin cá nhân',
-    click: () => {
-      // router.replace('/tai-khoan')
-    }
-  }], [{
+const items = [ [{
     label: 'Đăng xuất',
     click: () => {
       logout()
@@ -81,7 +75,7 @@ const items = [
   <v-app id="inspire">
     <v-navigation-drawer expand-on-hover floating width="320"  v-model="drawer">
       <div class = "py-5 px-2">
-        <div class = "max-w-[200px] max-h-[100px] pb-3">
+        <div class = "max-w-[170px] max-h-[100px] pb-3">
           <img src = "/img/logo_cinema.png">
         </div>
         <UVerticalNavigation :links="links" :ui = "{padding:'py-3 px-3', size:'text-lg'}">

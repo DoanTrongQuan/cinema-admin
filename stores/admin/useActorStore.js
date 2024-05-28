@@ -24,7 +24,6 @@ export const useActorStore = defineStore({
         const res = await getAllActor()
         this.actorName = res.data;
       } catch (error) {  
-        alert(error);
       }
   },
 

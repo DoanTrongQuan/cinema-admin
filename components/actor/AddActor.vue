@@ -1,6 +1,6 @@
 <template>
   <div class="w-full" style="width: 700px !important;">
-    <UModal v-model="isShowAddActor" class="w-full" prevent-close >
+    <UModal v-model="isShowAddActor" class="w-full" >
         <div class="py-1 px-4" >
             <div class="py-2 flex justify-end">
                 <UButton color="gray" variant="ghost" 

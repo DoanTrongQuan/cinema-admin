@@ -39,7 +39,10 @@ const chartOptions = ref({
 </script>
 
 <template>
-  <div class = "max-w-[1000px] max-h-[800px]">
+  <div class = "max-w-[1000px] h-[500px] text-2xl font-bold">
+    <div class = "my-4 text-center">
+      <h1>Biểu đồ doanh thu 6 tháng đầu năm 2024</h1>
+    </div>
     <Bar :data="chartData" :options="chartOptions" />
   </div>
 </template>
