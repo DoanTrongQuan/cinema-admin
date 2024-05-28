@@ -14,8 +14,9 @@ export const useFoodStore = defineStore({
           try {
             const res = await createFood(data)
             this.foods.push(res.data)
+            createToast({message:'Thêm combo thành công',time:3000, title: 'Thành công'})
           } catch (error) {  
-            alert(error.response.data)
+            createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
           }
       },
 
@@ -26,12 +27,11 @@ export const useFoodStore = defineStore({
           this.foods = res.data;
 
         } catch (error) {  
-          alert(error.response.data)
+
         }
 
     },
     async getFoodByAdmin(data){
-        console.log(data)
         try {
          this.isLoading = true;
           const res = await getFoodByAdmin(data);
@@ -47,6 +47,7 @@ export const useFoodStore = defineStore({
       try {
        this.isLoading = true;
         const res = await updateFood(data);
+        createToast({message:'Cập nhật tình trạng thành công',time:3000, title: 'Thành công'})
         for(let f of this.foods){
           if(f.id === res.data.id){
             f.price = res.data.price
@@ -56,11 +57,11 @@ export const useFoodStore = defineStore({
             break;
           }
         }
-        toast.add({ title: 'Cập nhật thành công' })
+       
       } catch (error) {  
-        alert(error.response.data)
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
       }finally{
-          this.isLoading = false
+
       }
   },
 

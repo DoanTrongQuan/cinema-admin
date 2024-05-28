@@ -1,7 +1,4 @@
 <template>
-  <UDashboardPage>
-    <UDashboardPanel grow>
-      <UDashboardNavbar title="Quản lí Sự kiện, Khuyến mãi"  class="text-2xl"/>
       <div class="overflow-y-auto">
         <v-card flat>
           <v-card-title class="d-flex align-center pe-2">
@@ -64,8 +61,7 @@
           </v-data-table>
         </v-card>
       </div>
-    </UDashboardPanel>
-  </UDashboardPage>
+
 </template>
 
 <script setup>

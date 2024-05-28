@@ -1,5 +1,5 @@
 <template>
-    <UDashboardPage>
+   
       <UModal v-model="isShowDeleteBill" class="w-full" prevent-close>
         <div class="py-1 px-4">
           <div class="py-2 flex justify-end">
@@ -26,17 +26,17 @@
               </div>
               <div class="w-full flex justify-center">
                 <UButton type = "submit">Xác nhận</UButton> 
-                <button @click = "check">Check</button>
+                <UButton @click= "check">check</UButton>
               </div>
               
             </UForm>
           </div>
         </div>
       </UModal>
-<UDashboardPanel grow>
-  <UDashboardNavbar title="Quản lí rạp chiếu phim"  class="text-2xl"/>
 
-<div class="overflow-y-auto">
+
+
+<div class="overflow-y-auto mt-5">
   <v-card>
   <v-card-title class="d-flex align-center pe-2">
     <v-spacer></v-spacer>
@@ -84,9 +84,6 @@
 </v-card>
 
 </div>
-  
-</UDashboardPanel>
-</UDashboardPage>
 </template>
 
 <script setup>
@@ -133,8 +130,7 @@ const check = () => {
 }
 
 const onSubmit = () => {
-    
-
+  billStore.deleteBillByAdmin(deleteBill.value)
 }
 </script> 
 

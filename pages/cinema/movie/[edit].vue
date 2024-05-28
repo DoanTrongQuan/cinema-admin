@@ -45,41 +45,41 @@ const openAddActor = () => {
   eventBus.emit('show_add_actor',true)
 }
 const onSubmit = async(event) => {
-  const data = {
-      movieDuration: event.data.movieDuration,
-      endTime: event.data.endTime,
-      premiereDate: event.data.premiereDate,
-      description: event.data.description,
-      director: event.data.director,
-      image: event.data.image.name,
-      herolmage: event.data.herolmage.name,
-      language:event.data.language ,
-      name:event.data.name,
-      trailer:event.data.trailer.name,
-      slug:event.data.slug,
-      type:event.data.type,
-      actor:event.data.actor,
-      codeCinema:event.data.codeCinema,
-      isUpcoming:event.data.isUpcoming
-    }
-   eventBus.emit('update_movie',data)
+
+  // const data = {
+  //     movieDuration: event.data.movieDuration,
+  //     endTime: event.data.endTime,
+  //     premiereDate: event.data.premiereDate,
+  //     description: event.data.description,
+  //     director: event.data.director,
+  //     image: event.data.image.name,
+  //     herolmage: event.data.herolmage.name,
+  //     language:event.data.language ,
+  //     name:event.data.name,
+  //     trailer:event.data.trailer.name,
+  //     slug:event.data.slug,
+  //     type:event.data.type,
+  //     actor:event.data.actor,
+  //     codeCinema:event.data.codeCinema,
+  //     isUpcoming:event.data.isUpcoming
+  //   }
+    movieStore.updateMovie(movie.value);
    isDeleteAccountModalOpen.value = true
 }
 
-const check = () => {
-  console.log(typeof movie.value.actor)
-}
 </script>
 
 <template>
-    <div>
+  <div>
     <AddActor/>
   </div>
   <UDashboardPanelContent class="pb-24">
     <UForm :state="movie" @submit="onSubmit">
-    <UDashboardSection>
-        
-        <div class="grid grid-cols-4 gap-2">
+    
+        <div>
+
+        <h1 class = "my-3 text-center text-2xl font-bold">Chỉnh sửa phim</h1>
+        <div class="grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Tên phim</p>
           <UInput
             class ="col-span-2 w-full"
@@ -90,7 +90,7 @@ const check = () => {
         </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class = "col-span-1">Thời lượng</p>
           <UInput
@@ -102,7 +102,7 @@ const check = () => {
       </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Đường dẫn</p>
           <UInput
@@ -115,7 +115,7 @@ const check = () => {
           </UInput>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Ngày công chiếu, ngày kết thúc"</p>
           <div class="col-span-2">
@@ -137,7 +137,7 @@ const check = () => {
 
           </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Đạo diễn</p>
           <UInput
@@ -147,7 +147,7 @@ const check = () => {
             size="md"
           />
         </div>
-        <div class="grid grid-cols-4 gap-5">
+        <div class="grid grid-cols-4 gap-5 mt-5">
         <p class = "col-span-1">Diễn viên</p>
         <div class="col-span-2">
                 <v-autocomplete
@@ -176,7 +176,7 @@ const check = () => {
                   </template>
                 </v-autocomplete>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 mt-5">
           <UButton
           @click = "openAddActor"
           class ="col-span-2"
@@ -191,7 +191,7 @@ const check = () => {
 
         </div>
 
-        <div class = "grid grid-cols-4 gap-2">
+        <div class = "grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Thể loại</p>
           <div class="col-span-2">
             <v-autocomplete
@@ -208,14 +208,14 @@ const check = () => {
                 <template v-slot:chip="{ props, item }">
                     <v-chip
                       v-bind="props"
-                      :text="item.raw.name"
+                
                     ></v-chip>
                   </template>
 
                   <template v-slot:item="{ props, item }">
                     <v-list-item
                       v-bind="props"
-                      :title="item.raw.name"
+              
                     ></v-list-item>
                   </template>
                 </v-autocomplete>
@@ -223,25 +223,25 @@ const check = () => {
         </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Hình ảnh</p>
           <v-file-input class="col-span-2" density = "compact" v-model="movie.image" label="File input" variant="outlined"></v-file-input>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Hình ảnh giới thiệu</p>
           <v-file-input density ="compact" v-model="movie.herolmage" class="col-span-2" label="File input" variant="outlined"></v-file-input>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
         <p class="col-span-1">Giới thiệu phim</p>
         <v-file-input density ="compact" v-model="movie.trailer" class="col-span-2" label="File input" variant="outlined"></v-file-input>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
         <p class="col-span-1">Quốc gia</p>
           <UInput
@@ -253,7 +253,7 @@ const check = () => {
       </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
           <p class="col-span-1">Mô tả</p>
           <UTextarea
@@ -266,16 +266,17 @@ const check = () => {
         </div>
 
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
         <p class="col-span-1">Thời gian chiếu</p>
          <UInputMenu class="col-span-2" v-model="movie.isUpcoming" :options="showTime" />
         </div>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Cụm rạp</p>
           <USelectMenu v-model="movie.codeCinema" :options="cinema" />
         </div>
-      </UDashboardSection>
+      </div>
+    
       <UButton
           type="submit"
           color="green"
@@ -283,18 +284,13 @@ const check = () => {
           size="md"
         />
     </UForm>
+    
 
 
     <UDashboardSection
       description=""
     >
       <div>
-        <UButton
-          color="green"
-          label="check"
-          size="md"
-          @click="check"
-        />
       </div>
     </UDashboardSection>
 

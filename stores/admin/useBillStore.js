@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getAllBill } from '~/repositories/cinema/billRepo';
+import { getAllBill,deleteBillByAdmin } from '~/repositories/cinema/billRepo';
 import { createToast } from "~/utils/toast";
 export const useBillStore = defineStore({
   id: "billStore",
@@ -18,6 +18,16 @@ export const useBillStore = defineStore({
           throw error;
         }
     },
+    async deleteBillByAdmin(data){
+      try {
+        const res = await deleteBillByAdmin(data)
+        createToast({message:'Xóa đơn hàng thành công',time:3000, title: 'Thành công'})
+
+      } catch (error) {  
+        createToast({message: error.response.data , type: 'error', title: 'Thất bại'})
+        
+      }
+  },
 
 
     clear() {

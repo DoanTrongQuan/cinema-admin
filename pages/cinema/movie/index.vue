@@ -29,6 +29,7 @@
             <img :src="movie.image" :alt="movie.image" class="h-full w-full  group-hover:opacity-75" />
           </div>
           <p class="mt-1 text-lg font-medium text-gray-900">{{ movie.name }}</p>
+          
           <NuxtLink :to="`/cinema/movie/${movie.slug}`"><UButton @click="editMovie(movie)" color="violet" variant="solid">Chỉnh sửa</UButton></NuxtLink>
           <UButton @click = "stopShowing(movie.slug)">Dừng chiếu</UButton>
         </a>
@@ -37,8 +38,9 @@
             <img :src="movie.image" :alt="movie.image" class="h-full w-full  group-hover:opacity-75" />
           </div>
           <p class="mt-1 text-lg font-medium text-gray-900">{{ movie.name }}</p>
+          
           <NuxtLink :to="`/cinema/movie/${movie.slug}`"><UButton @click="editMovie(movie)" color="violet" variant="solid">Chỉnh sửa</UButton></NuxtLink>
-          <UButton @click = "stopShowing(movie.slug)">Dừng chiếu</UButton>
+          <UButton @click = "stopShowing(movie.slug)" class = "ml-2">Dừng chiếu</UButton>
         </a>
         
       </div>

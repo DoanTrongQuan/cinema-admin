@@ -18,7 +18,7 @@
           <form  class="space-y-6">
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Hình ảnh</p>
-                <v-file-input class="col-span-2" density = "compact" v-model="newFood.image.name" label="File input" variant="outlined"></v-file-input>
+                <input class = "col-span-2" type="file" @change="handleFileChange">
             </div>
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Tên combo</p>
@@ -66,7 +66,8 @@
           <UForm :state="foodDetail" class="space-y-6" @submit="onSubmit">
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Hình ảnh</p>
-                <v-file-input class="col-span-2" density = "compact" v-model="foodDetail.image" label="File input" variant="outlined"></v-file-input>
+                <!-- <v-file-input class="col-span-2" density = "compact" v-model="foodDetail.image" label="File input" variant="outlined"></v-file-input> -->
+                <input class = "col-span-2" type="file" @change="handleFileChange">
             </div>
             <div class ="grid grid-cols-3">
                 <p class = "col-span-1">Tên combo</p>
@@ -217,7 +218,7 @@ const closeFood = () => {
 
 const onSubmit = async(event) => {
   const data = {
-    image:event.data.image.name,
+    image:"/img/" + event.data.image.name,
     foodName:event.data.foodName,
     description:event.data.description,
     price:event.data.price,
@@ -232,6 +233,15 @@ const addFood = () =>{
 
 const createFood = () => {
     foodStore.createFood(newFood.value)
+}
+
+function handleFileChange(event) { 
+  const file = event.target.files[0];
+
+  if (file) {
+    // image.value = URL.createObjectURL(file);
+    newFood.value.image = "/img/" +file.name;
+  }
 }
 </script>
 

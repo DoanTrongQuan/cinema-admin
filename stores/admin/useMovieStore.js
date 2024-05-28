@@ -46,7 +46,7 @@ export const useMovieStore = defineStore({
       this.movie = res.data;
     } catch (error) { 
       console.log(error) 
-      alert(error.response.data)
+
     }
 },
   async getMovieType(){
@@ -55,7 +55,7 @@ export const useMovieStore = defineStore({
       this.movieType = res.data;
     } catch (error) { 
       console.log(error) 
-      alert(error.response.data)
+
     }
 },
 async getAllCinemaName(){
@@ -63,7 +63,7 @@ async getAllCinemaName(){
     const res = await getAllCinemaName()
     this.cinemaName = res.data;
   } catch (error) { 
-    alert(error.response.data)
+
   }
 },
 async stopShowMovie(data){
@@ -71,7 +71,7 @@ async stopShowMovie(data){
     const res = await stopShowMovie(data)
     alert(res.data)
   } catch (error) { 
-    alert(error.response.data)
+
   }
 },
 

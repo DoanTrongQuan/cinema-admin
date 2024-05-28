@@ -64,7 +64,7 @@ function handleFileUpload(event, key) {
   if (event && event.target && event.target.files && event.target.files.length > 0) {
     const file = event.target.files[0];
     if (file) {
-      movie[key] = "/img/" + file.name;
+      movie[key] = file.name;
 
     }
   } else {
@@ -111,14 +111,14 @@ const check = () => {
   <div>
     <AddActor/>
   </div>
-  <UDashboardPanelContent class="pb-24">
+  <div>
     <h1 class="text-center font-medium font-sans text-3xl">Thêm mới phim</h1>
     <button @click = "check">Check</button>
     <UForm
       :state="movie"
       @submit="onSubmit"
     >
-      <UDashboardSection>
+
         
         
         <div class="grid grid-cols-4 gap-2 mt-2">
@@ -185,7 +185,7 @@ const check = () => {
 
 
         <div
-          class="grid grid-cols-4 gap-2 items-center"
+          class="grid grid-cols-4 gap-2 items-center mt-5"
         >
           <p class="col-span-1">Đạo diễn</p>
           <UInput
@@ -196,7 +196,7 @@ const check = () => {
             size="md"
           />
         </div>
-        <div class="grid grid-cols-4 gap-5 items-center">
+        <div class="grid grid-cols-4 gap-5 items-center mt-5">
         <p class = "col-span-1">Diễn viên</p>
         <div class="col-span-2">
                 <v-autocomplete
@@ -271,15 +271,15 @@ const check = () => {
           </div>
         </div>
 
-        <div class="grid grid-cols-4 gap-2 mt-3 items-center">
+        <div class="grid grid-cols-4 gap-2 mt-5 items-center mt-5">
           <p class="col-span-1">Hình ảnh</p>
           <input class="col-span-2" @change="handleFileUpload($event,'image')" placeholder="Hình ảnh" type="file">
         </div>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Hình ảnh giới thiệu</p>
           <input class="col-span-2" @change="handleFileUpload($event,'heroImage')" placeholder="Hình ảnh giới thiệu" type="file">
         </div>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Hình ảnh gợi ý</p>
           <input class="col-span-2" @change="handleFileUpload($event,'imageSuggest')" placeholder="Hình ảnh gợi ý" type="file">
         </div>
@@ -290,7 +290,7 @@ const check = () => {
         <UInput v-model="movie.trailer" class="col-span-2" placeholder="Trailler"></UInput>
         </div>
         <div
-          class="grid grid-cols-4 gap-2"
+          class="grid grid-cols-4 gap-2 mt-5"
         >
         <p class="col-span-1">Quốc gia</p>
           <UInput
@@ -322,11 +322,11 @@ const check = () => {
         <p class="col-span-1">Thời gian chiếu</p>
          <UInputMenu class="col-span-2" v-model="movie.isUpcoming" :options="showTime" />
         </div>
-        <div class="grid grid-cols-4 gap-2">
+        <div class="grid grid-cols-4 gap-2 mt-5">
           <p class="col-span-1">Cụm rạp</p>
           <USelectMenu v-model="movie.codeCinema" :options="cinema" />
         </div>
-      </UDashboardSection>
+      
       <UButton
           type = "submit"
           color="green"
@@ -342,7 +342,5 @@ const check = () => {
           @click="check"
       /> -->
     </UForm>
-    <!-- ~/components/settings/DeleteAccountModal.vue -->
-  <SettingsDeleteAccountModal v-model="isDeleteAccountModalOpen" />
-</UDashboardPanelContent>
+  </div>
 </template>
